@@ -1,3 +1,3 @@
-### Symptony is symptom tracker & analyzer.
+### Symptony is a symptom tracker & analyzer.
 
 Development in progress.
