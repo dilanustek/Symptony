@@ -16,15 +16,17 @@ class AppInner extends Component<Props, {}> {
 
   render() {
     return (
-      <Switch>
-        <Route path="/home" render={() => <div>hello antoine</div>} />
-        <Route path="/setSymptoms" component={SetSymptomsPage} />
-        {/* <Route>path="/setFactors" render{}</Route>
+      <div className="container">
+        <Switch>
+          <Route path="/home" render={() => <div>hello antoine</div>} />
+          <Route path="/setSymptoms" component={SetSymptomsPage} />
+          {/* <Route>path="/setFactors" render{}</Route>
           <Route>path="/viewEntries" render{}</Route>
           <Route>path="/newEntry" render{}</Route>
           <Route>path="/analytics" render{}</Route>
           <Route>path="/settings" render{}</Route> */}
-      </Switch>
+        </Switch>
+      </div>
     );
   }
 }

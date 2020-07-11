@@ -1,0 +1,16 @@
+.onboardContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.breadCrumbs {
+  font-size: 14px;
+}
+
+.onboardTitle {
+  font-family: "Roboto", sans-serif;
+  font-weight: 300;
+  font-size: 28px;
+}
