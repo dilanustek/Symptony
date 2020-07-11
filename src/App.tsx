@@ -1,26 +1,34 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import { Route, withRouter } from "react-router-dom";
+import { Switch } from "react-router-dom";
+import SetSymptomsPage from "./SetSymptomsPage";
+import { History } from "history";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import "./App.css";
+type Props = {
+  history: History;
+};
+
+class AppInner extends Component<Props, {}> {
+  componentDidMount() {
+    this.props.history.push("/setSymptoms");
+  }
+
+  render() {
+    return (
+      <Switch>
+        <Route path="/home" render={() => <div>hello antoine</div>} />
+        <Route path="/setSymptoms" component={SetSymptomsPage} />
+        {/* <Route>path="/setFactors" render{}</Route>
+          <Route>path="/viewEntries" render{}</Route>
+          <Route>path="/newEntry" render{}</Route>
+          <Route>path="/analytics" render{}</Route>
+          <Route>path="/settings" render{}</Route> */}
+      </Switch>
+    );
+  }
 }
+
+const App = withRouter(({ history }) => <AppInner history={history} />);
 
 export default App;
