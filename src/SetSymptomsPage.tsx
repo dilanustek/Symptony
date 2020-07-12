@@ -2,17 +2,12 @@ import React, { Component } from "react";
 import "./setSymptoms.css";
 import Button from "react-bootstrap/Button";
 import { Route } from "react-router-dom";
-import {
-  Symptom,
-  Factor,
-  allSymptomNames,
-  SymptomAndFactors,
-} from "./SymptomHelpers";
+import { Symptom, allSymptomNames, SymptomAndFactors } from "./SymptomHelpers";
 import SymptomTileButton from "./SymptomTileButton";
 
-interface State {
-  // symptoms: { [symptom in Symptom]: Factor[] } | {};
-  symptoms: SymptomAndFactors | null;
+interface Props {
+  setSymptomsAndFactors: (sympFac: SymptomAndFactors) => void;
+  symptoms: SymptomAndFactors;
 }
 
 const RouterButton = () => (
@@ -30,18 +25,11 @@ const RouterButton = () => (
   />
 );
 
-class SetSymptomsPage extends Component<{}, State> {
-  state: State = {
-    symptoms: {},
-  };
-
+class SetSymptomsPage extends Component<Props, {}> {
   addSymptom = (newSymptom: Symptom) => {
-    const symps = this.state.symptoms;
+    const symps = this.props.symptoms;
 
-    if (!symps) {
-      let newSymps: SymptomAndFactors = {};
-      newSymps[newSymptom] = [];
-    } else if (!symps[newSymptom]) {
+    if (!symps[newSymptom]) {
       symps[newSymptom] = [];
       this.setState({
         symptoms: symps,
