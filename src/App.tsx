@@ -3,11 +3,12 @@ import { Route, withRouter } from "react-router-dom";
 import { Switch } from "react-router-dom";
 import SetSymptomsPage from "./SetSymptomsPage";
 import { History } from "history";
-
+import { Symptom, Factor } from "./SymptomHelpers";
 import "./App.css";
-type Props = {
+
+interface Props {
   history: History;
-};
+}
 
 class AppInner extends Component<Props, {}> {
   componentDidMount() {
@@ -16,7 +17,7 @@ class AppInner extends Component<Props, {}> {
 
   render() {
     return (
-      <div className="container">
+      <div className="AppContainer">
         <Switch>
           <Route path="/home" render={() => <div>hello antoine</div>} />
           <Route path="/setSymptoms" component={SetSymptomsPage} />
