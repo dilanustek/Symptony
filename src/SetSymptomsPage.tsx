@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import "./setSymptoms.css";
-import Button from "react-bootstrap/Button";
 import { Route } from "react-router-dom";
 import { Symptom, allSymptomNames, SymptomAndFactors } from "./SymptomHelpers";
 import SymptomTileButton from "./SymptomTileButton";
+import Button from "@material-ui/core/Button";
+import { styled } from "@material-ui/core/styles";
 
 interface Props {
   setSymptomsAndFactors: (sympFac: SymptomAndFactors) => void;
@@ -14,7 +15,8 @@ const RouterButton = () => (
   <Route
     render={({ history }) => (
       <Button
-        variant="primary"
+        variant="contained"
+        color="primary"
         onClick={() => {
           history.push("/home");
         }}
@@ -24,6 +26,11 @@ const RouterButton = () => (
     )}
   />
 );
+
+const NextBtn = styled(RouterButton)({
+  width: "200px",
+  height: "40px",
+});
 
 class SetSymptomsPage extends Component<Props, {}> {
   addSymptom = (newSymptom: Symptom) => {
@@ -41,7 +48,12 @@ class SetSymptomsPage extends Component<Props, {}> {
     let sympTiles = [];
     for (let s of allSymptomNames) {
       sympTiles.push(
-        <SymptomTileButton addSymptom={this.addSymptom} symptomName={s} />
+        <SymptomTileButton
+          key={s}
+          addSymptom={this.addSymptom}
+          symptomName={s}
+          symptomSelected={this.props.symptoms[s] !== undefined}
+        />
       );
     }
 
@@ -54,7 +66,9 @@ class SetSymptomsPage extends Component<Props, {}> {
         <div className="breadCrumbs">Customize (1/2)</div>
         <div className="onboardTitle">Which symptoms do you want to track?</div>
         <div className="sympTiles">{this.getSymptomTiles()}</div>
-        <RouterButton />
+        <div className="submitBtn">
+          <NextBtn />
+        </div>
       </div>
     );
   }

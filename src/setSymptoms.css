@@ -7,10 +7,16 @@
 
 .breadCrumbs {
   font-size: 14px;
+  color: #999999;
 }
 
 .onboardTitle {
   font-family: "Roboto", sans-serif;
   font-weight: 300;
   font-size: 28px;
+}
+
+.submitBtn {
+  display: flex;
+  justify-content: center;
 }
