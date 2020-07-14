@@ -1,13 +1,3 @@
-// export enum Symptom {
-//   REFLUX = "Acid Reflux",
-//   IBS = "Irritable Bowel",
-//   HEART = "Heart irregularity",
-//   MIGRAINE = "Migraines",
-//   STOMACH = "Stomach / Nausia",
-//   PAIN = "Pain",
-//   PMS = "Premenstrual Syndrome",
-//   VERTIGO = "Vertigo",
-// }
 export enum Symptom {
   REFLUX = "REFLUX",
   IBS = "IBS",
