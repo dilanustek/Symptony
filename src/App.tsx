@@ -23,15 +23,15 @@ class AppInner extends Component<Props, State> {
     this.props.history.push("/setSymptoms");
   }
 
-  setSymptomsAndFactors = (symp: SymptomsAndFactors) => {
+  setSymptomsAndFactors = (symptomsAndFactors: SymptomsAndFactors) => {
     this.setState({
-      symptomsAndFactors: symp,
+      symptomsAndFactors,
     });
   };
 
   render() {
     return (
-      <div className="AppContainer">
+      <div className="App">
         <Switch>
           <Route path="/home" render={() => <div>hello antoine</div>} />
           <Route
