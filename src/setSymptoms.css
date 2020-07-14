@@ -1,0 +1,11 @@
+.onboardContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.submitBtn {
+  display: flex;
+  justify-content: center;
+}
