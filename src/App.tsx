@@ -3,11 +3,11 @@ import { Route, withRouter } from "react-router-dom";
 import { Switch } from "react-router-dom";
 import SetSymptomsPage from "./SetSymptomsPage";
 import { History } from "history";
-import { SymptomAndFactors } from "./SymptomHelpers";
+import { SymptomsAndFactors } from "./SymptomHelpers";
 import "./App.css";
 
 interface State {
-  symptoms: SymptomAndFactors;
+  symptomsAndFactors: SymptomsAndFactors;
 }
 
 interface Props {
@@ -16,16 +16,16 @@ interface Props {
 
 class AppInner extends Component<Props, State> {
   state: State = {
-    symptoms: {},
+    symptomsAndFactors: {},
   };
 
   componentDidMount() {
     this.props.history.push("/setSymptoms");
   }
 
-  setSymptomsAndFactors = (symp: SymptomAndFactors) => {
+  setSymptomsAndFactors = (symp: SymptomsAndFactors) => {
     this.setState({
-      symptoms: symp,
+      symptomsAndFactors: symp,
     });
   };
 
@@ -38,7 +38,7 @@ class AppInner extends Component<Props, State> {
             path="/setSymptoms"
             render={() => (
               <SetSymptomsPage
-                symptoms={this.state.symptoms}
+                symptomsAndFactors={this.state.symptomsAndFactors}
                 setSymptomsAndFactors={this.setSymptomsAndFactors}
               />
             )}

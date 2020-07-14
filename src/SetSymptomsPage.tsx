@@ -1,73 +1,95 @@
 import React, { Component } from "react";
 import "./setSymptoms.css";
-import { Route } from "react-router-dom";
-import { Symptom, allSymptomNames, SymptomAndFactors } from "./SymptomHelpers";
+import { Symptom, SymptomsAndFactors, SymptomNames } from "./SymptomHelpers";
 import SymptomTileButton from "./SymptomTileButton";
-import Button from "@material-ui/core/Button";
-import { styled } from "@material-ui/core/styles";
+import NextButton from "./NextButton";
+import { Typography } from "@material-ui/core";
+import Grid from "@material-ui/core/Grid";
 
 interface Props {
-  setSymptomsAndFactors: (sympFac: SymptomAndFactors) => void;
-  symptoms: SymptomAndFactors;
+  setSymptomsAndFactors: (sympFac: SymptomsAndFactors) => void;
+  symptomsAndFactors: SymptomsAndFactors;
 }
 
-const RouterButton = () => (
-  <Route
-    render={({ history }) => (
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={() => {
-          history.push("/home");
-        }}
-      >
-        Next
-      </Button>
-    )}
-  />
-);
-
-const NextBtn = styled(RouterButton)({
-  width: "200px",
-  height: "40px",
-});
-
 class SetSymptomsPage extends Component<Props, {}> {
-  addSymptom = (newSymptom: Symptom) => {
-    const symps = this.props.symptoms;
-
+  toggleSymptom = (newSymptom: Symptom) => {
+    const symps = this.props.symptomsAndFactors;
     if (!symps[newSymptom]) {
       symps[newSymptom] = [];
-      this.setState({
-        symptoms: symps,
-      });
+    } else {
+      delete symps[newSymptom];
     }
+    this.props.setSymptomsAndFactors(symps);
   };
 
   getSymptomTiles() {
-    let sympTiles = [];
-    for (let s of allSymptomNames) {
-      sympTiles.push(
-        <SymptomTileButton
-          key={s}
-          addSymptom={this.addSymptom}
-          symptomName={s}
-          symptomSelected={this.props.symptoms[s] !== undefined}
-        />
-      );
-    }
+    const symptoms = Object.values(Symptom);
 
-    return sympTiles;
+    return symptoms.map((symptom) => (
+      <Grid item xs>
+        <SymptomTileButton
+          key={symptom}
+          toggleSymptom={() => this.toggleSymptom(symptom)}
+          symptom={symptom}
+          symptomSelected={this.props.symptomsAndFactors[symptom] !== undefined}
+        />
+      </Grid>
+    ));
   }
+
+  // getSymptomTiles() {
+  //   let sympTiles = [];
+  //   const keys = Object.keys(SymptomNames);
+
+  //   sympTiles = keys.map(key =>
+  //   <Grid item xs>
+  //     <SymptomTileButton
+  //       key={SymptomNames[Symptom[key]]}
+  //       toggleSymptom={this.toggleSymptom}
+  //       symptomName={s}
+  //       symptomSelected={
+  //         this.props.symptomsAndFactors[SymptomNames[key]] !== undefined
+  //       }
+  //     />
+  //   </Grid>
+  //   );
+  //   // {
+
+  //   // } )
+
+  //   // for (const key of keys) {
+  //   //   const s: string = SymptomName[key];
+  //   //   sympTiles.push(
+  //   //     <Grid item xs>
+  //   //       <SymptomTileButton
+  //   //         key={s}
+  //   //         addSymptom={this.addSymptom}
+  //   //         symptomName={s}
+  //   //         symptomSelected={
+  //   //           SymtomName[this.props.symptomsAndFactors[s]] !== undefined
+  //   //         }
+  //   //       />
+  //   //     </Grid>
+  //   //   );
+  //   // }
+
+  //   return sympTiles;
+  // }
 
   render() {
     return (
       <div className="onboardContainer">
-        <div className="breadCrumbs">Customize (1/2)</div>
-        <div className="onboardTitle">Which symptoms do you want to track?</div>
-        <div className="sympTiles">{this.getSymptomTiles()}</div>
+        <Typography variant="h6">Customize (1/2)</Typography>
+        <Typography variant="h3">
+          Which symptoms do you want to track?
+        </Typography>
+        <div className="sympTiles">
+          <Grid container spacing={2}>
+            {this.getSymptomTiles()}
+          </Grid>
+        </div>
         <div className="submitBtn">
-          <NextBtn />
+          <NextButton buttonText="Next" />
         </div>
       </div>
     );
