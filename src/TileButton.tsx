@@ -8,8 +8,8 @@ import { SymptomNames } from "./SymptomHelpers";
 
 interface Props {
   toggleSymptom: () => void;
-  symptom: Symptom;
-  symptomSelected: boolean;
+  tileName: string;
+  isSelected: boolean;
 }
 
 const TileButton = (props: Props) => {
@@ -17,7 +17,7 @@ const TileButton = (props: Props) => {
     width: "130px",
     height: "64px",
     textTransform: "capitalize",
-    background: props.symptomSelected ? purple[200] : purple[100],
+    background: props.isSelected ? purple[200] : purple[100],
   });
 
   return (
@@ -27,7 +27,7 @@ const TileButton = (props: Props) => {
         color="secondary"
         onClick={props.toggleSymptom}
       >
-        <Typography>{SymptomNames[props.symptom]}</Typography>
+        <Typography>{props.tileName}</Typography>
       </TileBtn>
     </>
   );

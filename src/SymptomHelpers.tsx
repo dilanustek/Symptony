@@ -24,10 +24,18 @@ export type SymptomsAndFactors = {
   [key in Symptom]?: Factor[];
 };
 
-export type Factor =
-  | "Current Activity"
-  | "Hydration"
-  | "Food"
-  | "Exercise"
-  | "Mood"
-  | "Sleep";
+export enum Factor {
+  ACTIVITY = "ACTIVITY",
+  HYDRATION = "HYDRATION",
+  FOOD = "FOOD",
+  MOOD = "MOOD",
+  SLEEP = "SLEEP",
+}
+
+export const FactorNames: { [key in Factor]: string } = {
+  ACTIVITY: "Current Activity",
+  HYDRATION: "Hydration",
+  FOOD: "Food",
+  MOOD: "Mood",
+  SLEEP: "Sleep",
+};

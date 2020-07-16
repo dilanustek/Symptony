@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { Route, withRouter } from "react-router-dom";
+import { Route, withRouter, Link, RouteComponentProps } from "react-router-dom";
 import { Switch } from "react-router-dom";
 import SetSymptomsPage from "./SetSymptomsPage";
+import SetFactorsPage from "./SetFactorsPage";
 import { History } from "history";
 import { SymptomsAndFactors } from "./SymptomHelpers";
 import "./App.css";
@@ -33,7 +34,17 @@ class AppInner extends Component<Props, State> {
     return (
       <div className="App">
         <Switch>
-          <Route path="/home" render={() => <div>hello antoine</div>} />
+          <Route
+            exact
+            path="/setFactors/:symptomIndex"
+            render={(props: RouteComponentProps) => (
+              <SetFactorsPage
+                symptomsAndFactors={this.state.symptomsAndFactors}
+                setSymptomsAndFactors={this.setSymptomsAndFactors}
+                match={props.match}
+              />
+            )}
+          />
           <Route
             path="/setSymptoms"
             render={() => (

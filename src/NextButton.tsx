@@ -5,6 +5,7 @@ import { styled } from "@material-ui/core/styles";
 
 interface Props {
   label: string;
+  path: string;
 }
 
 const NextButton = (props: Props) => {
@@ -14,7 +15,7 @@ const NextButton = (props: Props) => {
       variant="contained"
       color="primary"
       onClick={() => {
-        history.push("/home");
+        history.push(props.path);
       }}
     >
       {props.label}
