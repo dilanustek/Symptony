@@ -56,17 +56,6 @@ class SetFactorsPage extends Component<Props, {}> {
     ));
   }
 
-  getNextSymptomPath() {
-    const symptomIndexParam = this.props.match.params.symptomIndex;
-    const symptomIndex = parseInt(symptomIndexParam);
-    const sympKeys = Object.keys(this.props.symptomsAndFactors);
-
-    const nextSymptomIndex = symptomIndex + 1;
-    if (sympKeys.length > nextSymptomIndex)
-      return "/SetFactorsPage/" + nextSymptomIndex;
-    else return "/ViewEntriesPage";
-  }
-
   render() {
     const symptomIndexParam = this.props.match.params.symptomIndex;
     const symptomIndex = parseInt(symptomIndexParam);
@@ -90,8 +79,8 @@ class SetFactorsPage extends Component<Props, {}> {
             label="Next"
             path={
               sympKeys.length > symptomIndex + 1
-                ? "/SetFactorsPage/" + (symptomIndex + 1)
-                : "/ViewEntriesPage"
+                ? "/SetFactors/" + (symptomIndex + 1)
+                : "/ViewEntries"
             }
           />
         </div>
