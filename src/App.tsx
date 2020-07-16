@@ -7,6 +7,8 @@ import { History } from "history";
 import { SymptomsAndFactors, Factor } from "./SymptomHelpers";
 import "./App.css";
 import ViewEntriesPage from "./ViewEntriesPage";
+import AnalyticsPage from "./AnalyticsPage";
+import SettingsPage from "./SettingsPage";
 
 interface State {
   symptomsAndFactors: SymptomsAndFactors;
@@ -74,9 +76,23 @@ class AppInner extends Component<Props, State> {
               />
             )}
           ></Route>
-          {/* <Route>path="/newEntry" render{}</Route>
-          <Route>path="/analytics" render{}</Route>
-          <Route>path="/settings" render{}</Route> */}
+          <Route
+            path="/analytics"
+            render={() => (
+              <AnalyticsPage
+                symptomsAndFactors={this.state.symptomsAndFactors}
+              />
+            )}
+          ></Route>
+          <Route
+            path="/settings"
+            render={() => (
+              <SettingsPage
+                symptomsAndFactors={this.state.symptomsAndFactors}
+              />
+            )}
+          ></Route>
+          {/* <Route path="/newEntry" render{}</Route> */}
         </Switch>
       </div>
     );

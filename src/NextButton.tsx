@@ -1,7 +1,6 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
 import Button from "@material-ui/core/Button";
-import { styled } from "@material-ui/core/styles";
 
 interface Props {
   label: string;
@@ -21,11 +20,8 @@ const NextButton = (props: Props) => {
       {props.label}
     </Button>
   ));
-  const StyledRouterButton = styled(RouterButton)({
-    alignSelf: "center",
-  });
 
-  return <StyledRouterButton />;
+  return <RouterButton />;
 };
 
 export default NextButton;

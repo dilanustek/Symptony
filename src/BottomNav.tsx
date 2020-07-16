@@ -5,15 +5,18 @@ import List from "@material-ui/icons/List";
 import TrendingUp from "@material-ui/icons/TrendingUp";
 import Settings from "@material-ui/icons/Settings";
 import "./navBar.css";
+import { withRouter } from "react-router-dom";
 
 export default function BottomNav() {
   const [value, setValue] = React.useState(0);
+  const pathsArr = ["/viewEntries", "/analytics", "/settings"];
 
-  return (
+  const RouterBottomNavigation = withRouter(({ history }) => (
     <BottomNavigation
       value={value}
       onChange={(event, newValue) => {
         setValue(newValue);
+        history.push(pathsArr[newValue]);
       }}
       showLabels
       className="navBar"
@@ -22,5 +25,7 @@ export default function BottomNav() {
       <BottomNavigationAction label="Insights" icon={<TrendingUp />} />
       <BottomNavigationAction label="Settings" icon={<Settings />} />
     </BottomNavigation>
-  );
+  ));
+
+  return <RouterBottomNavigation />;
 }
