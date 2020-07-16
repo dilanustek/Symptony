@@ -4,7 +4,7 @@ import { Switch } from "react-router-dom";
 import SetSymptomsPage from "./SetSymptomsPage";
 import SetFactorsPage from "./SetFactorsPage";
 import { History } from "history";
-import { SymptomsAndFactors } from "./SymptomHelpers";
+import { SymptomsAndFactors, Factor } from "./SymptomHelpers";
 import "./App.css";
 import ViewEntriesPage from "./ViewEntriesPage";
 
@@ -22,7 +22,18 @@ class AppInner extends Component<Props, State> {
   };
 
   componentDidMount() {
-    this.props.history.push("/setSymptoms");
+    // uncomment to get out of development mode and the code below
+    // this.props.history.push("/setSymptoms");
+
+    // for development
+    const symptomsAndFactors: SymptomsAndFactors = {};
+    symptomsAndFactors.PAIN = [Factor.ACTIVITY, Factor.EXERCISE];
+
+    this.setState({
+      symptomsAndFactors,
+    });
+
+    this.props.history.push("/viewEntries");
   }
 
   setSymptomsAndFactors = (symptomsAndFactors: SymptomsAndFactors) => {
@@ -63,8 +74,7 @@ class AppInner extends Component<Props, State> {
               />
             )}
           ></Route>
-          {/* <Route>path="/setFactors" render{}</Route>
-          <Route>path="/newEntry" render{}</Route>
+          {/* <Route>path="/newEntry" render{}</Route>
           <Route>path="/analytics" render{}</Route>
           <Route>path="/settings" render{}</Route> */}
         </Switch>
