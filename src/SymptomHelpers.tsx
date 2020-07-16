@@ -26,6 +26,7 @@ export type SymptomsAndFactors = {
 
 export enum Factor {
   ACTIVITY = "ACTIVITY",
+  EXERCISE = "EXERCISE",
   HYDRATION = "HYDRATION",
   FOOD = "FOOD",
   MOOD = "MOOD",
@@ -34,6 +35,7 @@ export enum Factor {
 
 export const FactorNames: { [key in Factor]: string } = {
   ACTIVITY: "Current Activity",
+  EXERCISE: "Exercise",
   HYDRATION: "Hydration",
   FOOD: "Food",
   MOOD: "Mood",

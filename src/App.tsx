@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Route, withRouter, Link, RouteComponentProps } from "react-router-dom";
+import { Route, withRouter, RouteComponentProps } from "react-router-dom";
 import { Switch } from "react-router-dom";
 import SetSymptomsPage from "./SetSymptomsPage";
 import SetFactorsPage from "./SetFactorsPage";

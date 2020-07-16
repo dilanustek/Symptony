@@ -38,19 +38,26 @@ class SetSymptomsPage extends Component<Props, {}> {
   }
 
   render() {
+    console.log(this.props.symptomsAndFactors);
     return (
       <div className="onboardContainer">
-        <Typography variant="h3">
-          Which symptoms do you want to track?
-        </Typography>
-        <div className="sympTiles">
-          <Grid container spacing={2}>
-            {this.getSymptomTiles()}
-          </Grid>
+        <div className="top">
+          <Typography variant="h3">
+            Which symptoms do you want to track?
+          </Typography>
+          <div className="sympTiles">
+            <Grid container spacing={2}>
+              {this.getSymptomTiles()}
+            </Grid>
+          </div>
         </div>
-        <div className="submitBtn">
-          <NextButton label="Next" path="/setFactors/0" />
-        </div>
+        {Object.entries(this.props.symptomsAndFactors).length === 0 ? (
+          <div className="submitBtn"></div>
+        ) : (
+          <div className="submitBtn">
+            <NextButton label="Next" path="/setFactors/0" />
+          </div>
+        )}
       </div>
     );
   }

@@ -1,10 +1,8 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
-import { Symptom } from "./SymptomHelpers";
 import { styled } from "@material-ui/core/styles";
 import { purple } from "@material-ui/core/colors/";
 import { Typography } from "@material-ui/core";
-import { SymptomNames } from "./SymptomHelpers";
 
 interface Props {
   toggleSymptom: () => void;

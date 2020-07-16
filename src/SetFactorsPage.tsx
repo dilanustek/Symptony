@@ -26,7 +26,7 @@ class SetFactorsPage extends Component<Props, {}> {
     if (!factorList)
       return Error("Symptom is null while trying to add factors.");
 
-    // if factor is there remove it
+    // if factor is there remove it, otherwise add it.
     if (factorList.includes(currentFactor)) {
       const removedFactorList = factorList.filter(
         (factor) => factor !== currentFactor
@@ -65,14 +65,28 @@ class SetFactorsPage extends Component<Props, {}> {
 
     return (
       <div className="onboardContainer">
-        <Typography variant="h3">
-          Which of the following might be related to {SymptomNames[symp]} (
-          {symptomIndex + 1}/{sympKeys.length})
-        </Typography>
-        <div className="facTiles">
-          <Grid container spacing={2}>
-            {this.getFactorTiles(symp)}
-          </Grid>
+        <div className="top">
+          <div>
+            <div>
+              <Typography variant="h3">
+                Which of the following might be related to{" "}
+                <b>{SymptomNames[symp]}</b>?
+                <Typography variant="h6">
+                  ({symptomIndex + 1}/{sympKeys.length})
+                </Typography>
+              </Typography>
+            </div>
+            <Typography variant="h6">
+              When you experience acid reflux, we will help you record what was
+              happening. Then the app analyze this data to show you
+              correlations.
+            </Typography>
+          </div>
+          <div className="facTiles">
+            <Grid container spacing={2}>
+              {this.getFactorTiles(symp)}
+            </Grid>
+          </div>
         </div>
         <div className="submitBtn">
           <NextButton
