@@ -6,6 +6,7 @@ import SetFactorsPage from "./SetFactorsPage";
 import { History } from "history";
 import { SymptomsAndFactors } from "./SymptomHelpers";
 import "./App.css";
+import ViewEntriesPage from "./ViewEntriesPage";
 
 interface State {
   symptomsAndFactors: SymptomsAndFactors;
@@ -54,8 +55,15 @@ class AppInner extends Component<Props, State> {
               />
             )}
           />
+          <Route
+            path="/viewEntries"
+            render={() => (
+              <ViewEntriesPage
+                symptomsAndFactors={this.state.symptomsAndFactors}
+              />
+            )}
+          ></Route>
           {/* <Route>path="/setFactors" render{}</Route>
-          <Route>path="/viewEntries" render{}</Route>
           <Route>path="/newEntry" render{}</Route>
           <Route>path="/analytics" render{}</Route>
           <Route>path="/settings" render{}</Route> */}

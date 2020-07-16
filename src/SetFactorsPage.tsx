@@ -90,7 +90,7 @@ class SetFactorsPage extends Component<Props, {}> {
         </div>
         <div className="submitBtn">
           <NextButton
-            label="Next"
+            label="Done"
             path={
               sympKeys.length > symptomIndex + 1
                 ? "/SetFactors/" + (symptomIndex + 1)
