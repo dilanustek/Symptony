@@ -23,6 +23,13 @@ theme.typography.h3 = {
   fontWeight: "300",
 };
 
+theme.typography.h5 = {
+  fontWeight: "500",
+  fontSize: "28px",
+  color: purple[500],
+  marginTop: theme.spacing(8),
+};
+
 theme.typography.h6 = {
   fontWeight: "400",
   fontSize: "16px",

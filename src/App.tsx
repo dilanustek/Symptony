@@ -9,6 +9,7 @@ import "./App.css";
 import ViewEntriesPage from "./ViewEntriesPage";
 import AnalyticsPage from "./AnalyticsPage";
 import SettingsPage from "./SettingsPage";
+import NavBar from "./NavBar";
 
 interface State {
   symptomsAndFactors: SymptomsAndFactors;
@@ -19,23 +20,26 @@ interface Props {
 }
 
 class AppInner extends Component<Props, State> {
-  state: State = {
-    symptomsAndFactors: {},
+  // for development
+  symptomsAndFactors: SymptomsAndFactors = {
+    PAIN: [Factor.ACTIVITY, Factor.EXERCISE],
+    VERTIGO: [Factor.SLEEP, Factor.MOOD],
   };
+
+  state: State = {
+    symptomsAndFactors: this.symptomsAndFactors,
+  };
+
+  // state: State = {
+  //   symptomsAndFactors: {},
+  // };
 
   componentDidMount() {
     // uncomment to get out of development mode and the code below
     // this.props.history.push("/setSymptoms");
 
-    // for development
-    const symptomsAndFactors: SymptomsAndFactors = {};
-    symptomsAndFactors.PAIN = [Factor.ACTIVITY, Factor.EXERCISE];
-
-    this.setState({
-      symptomsAndFactors,
-    });
-
-    this.props.history.push("/viewEntries");
+    //  for development
+    this.props.history.push("/main/viewEntries/");
   }
 
   setSymptomsAndFactors = (symptomsAndFactors: SymptomsAndFactors) => {
@@ -69,31 +73,35 @@ class AppInner extends Component<Props, State> {
             )}
           />
           <Route
-            path="/viewEntries"
+            path="/main/viewEntries"
             render={() => (
               <ViewEntriesPage
                 symptomsAndFactors={this.state.symptomsAndFactors}
               />
             )}
-          ></Route>
+          />
           <Route
-            path="/analytics"
+            path="/main/analytics"
             render={() => (
               <AnalyticsPage
                 symptomsAndFactors={this.state.symptomsAndFactors}
               />
             )}
-          ></Route>
+          />
           <Route
-            path="/settings"
+            path="/main/settings"
             render={() => (
               <SettingsPage
                 symptomsAndFactors={this.state.symptomsAndFactors}
               />
             )}
-          ></Route>
+          />
           {/* <Route path="/newEntry" render{}</Route> */}
         </Switch>
+        <Route
+          path="/main"
+          render={(props) => <NavBar history={props.history} />}
+        />
       </div>
     );
   }

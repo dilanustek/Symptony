@@ -93,8 +93,8 @@ class SetFactorsPage extends Component<Props, {}> {
             label="Done"
             path={
               sympKeys.length > symptomIndex + 1
-                ? "/SetFactors/" + (symptomIndex + 1)
-                : "/ViewEntries"
+                ? "/setFactors/" + (symptomIndex + 1)
+                : "/main/ViewEntries"
             }
           />
         </div>

@@ -1,17 +1,43 @@
 import React, { Component } from "react";
-import { SymptomsAndFactors } from "./SymptomHelpers";
-import BottomNav from "./BottomNav";
+import { SymptomsAndFactors, Symptom } from "./SymptomHelpers";
+import { Typography } from "@material-ui/core";
+import { styled } from "@material-ui/core/styles";
+import Divider from "@material-ui/core/Divider";
+import SelectedSymptomsDropdown from "./SelectedSymptomsDrowdown";
+
+interface State {
+  selectedSymptom: Symptom;
+}
 
 interface Props {
   symptomsAndFactors: SymptomsAndFactors;
 }
 
-class ViewEntriesPage extends Component<Props, {}> {
+const TitleDivider = styled(Divider)(({ theme }) => ({
+  marginTop: theme.spacing(1),
+}));
+
+class ViewEntriesPage extends Component<Props, State> {
+  state: State = {
+    selectedSymptom: Object.keys(this.props.symptomsAndFactors)[0] as Symptom,
+  };
+
+  setSelectedSymptom = (selectedSymptom: Symptom) => {
+    this.setState({
+      selectedSymptom,
+    });
+  };
+
   render() {
     return (
       <>
-        <div> Entries</div>
-        <BottomNav />
+        <Typography variant="h5"> Symptom Entries</Typography>
+        <TitleDivider variant="fullWidth" />
+        <SelectedSymptomsDropdown
+          symptomsAndFactors={this.props.symptomsAndFactors}
+          setSelectedSymptom={this.setSelectedSymptom}
+          selectedSymptom={this.state.selectedSymptom}
+        />
       </>
     );
   }
