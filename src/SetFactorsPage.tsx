@@ -13,32 +13,12 @@ import { Typography } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 
 interface Props {
-  setSymptomsAndFactors: (symptomsAndFactors: SymptomsAndFactors) => void;
+  setSymptomsAndFactors: (symptom: Symptom, factor: Factor) => void;
   symptomsAndFactors: SymptomsAndFactors;
   symptomIndexParams: any;
 }
 
 class SetFactorsPage extends Component<Props, {}> {
-  toggleFactor = (currentFactor: Factor, symptom: Symptom) => {
-    const symptomsAndFactors = this.props.symptomsAndFactors;
-    const factorList = symptomsAndFactors[symptom];
-
-    if (!factorList)
-      return Error("Symptom is null while trying to add factors.");
-
-    // if factor is there remove it, otherwise add it.
-    if (factorList.includes(currentFactor)) {
-      const removedFactorList = factorList.filter(
-        (factor) => factor !== currentFactor
-      );
-      symptomsAndFactors[symptom] = removedFactorList;
-    } else {
-      factorList.push(currentFactor);
-    }
-
-    this.props.setSymptomsAndFactors(symptomsAndFactors);
-  };
-
   getFactorTiles(symptom: Symptom) {
     const factors = Object.values(Factor);
 
@@ -46,7 +26,9 @@ class SetFactorsPage extends Component<Props, {}> {
       <Grid item xs key={factor}>
         <TileButton
           key={factor}
-          toggleSymptom={() => this.toggleFactor(factor, symptom)}
+          toggleSymptom={() =>
+            this.props.setSymptomsAndFactors(symptom, factor)
+          }
           tileName={FactorNames[factor]}
           isSelected={
             this.props.symptomsAndFactors[symptom]?.includes(factor) === true

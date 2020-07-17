@@ -7,21 +7,11 @@ import { Typography } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 
 interface Props {
-  setSymptomsAndFactors: (symptomsAndFactors: SymptomsAndFactors) => void;
+  setSymptomsAndFactors: (symptom: Symptom) => void;
   symptomsAndFactors: SymptomsAndFactors;
 }
 
 class SetSymptomsPage extends Component<Props, {}> {
-  toggleSymptom = (newSymptom: Symptom) => {
-    const symptomsAndFactors = this.props.symptomsAndFactors;
-    if (!symptomsAndFactors[newSymptom]) {
-      symptomsAndFactors[newSymptom] = [];
-    } else {
-      delete symptomsAndFactors[newSymptom];
-    }
-    this.props.setSymptomsAndFactors(symptomsAndFactors);
-  };
-
   getSymptomTiles() {
     const symptoms = Object.values(Symptom);
 
@@ -29,7 +19,7 @@ class SetSymptomsPage extends Component<Props, {}> {
       <Grid item xs key={symptom}>
         <TileButton
           key={symptom}
-          toggleSymptom={() => this.toggleSymptom(symptom)}
+          toggleSymptom={() => this.props.setSymptomsAndFactors(symptom)}
           tileName={SymptomNames[symptom]}
           isSelected={this.props.symptomsAndFactors[symptom] !== undefined}
         />

@@ -4,7 +4,7 @@ import { Switch } from "react-router-dom";
 import SetSymptomsPage from "./SetSymptomsPage";
 import SetFactorsPage from "./SetFactorsPage";
 import { History } from "history";
-import { SymptomsAndFactors, Factor } from "./SymptomHelpers";
+import { SymptomsAndFactors, Factor, Symptom } from "./SymptomHelpers";
 import "./App.css";
 import ViewEntriesPage from "./ViewEntriesPage";
 import AnalyticsPage from "./AnalyticsPage";
@@ -21,28 +21,55 @@ interface Props {
 
 class AppInner extends Component<Props, State> {
   // for development
-  symptomsAndFactors: SymptomsAndFactors = {
-    PAIN: [Factor.ACTIVITY, Factor.EXERCISE],
-    VERTIGO: [Factor.SLEEP, Factor.MOOD],
-  };
-
-  state: State = {
-    symptomsAndFactors: this.symptomsAndFactors,
-  };
+  // symptomsAndFactors: SymptomsAndFactors = {
+  //   PAIN: [Factor.ACTIVITY, Factor.EXERCISE],
+  //   VERTIGO: [Factor.SLEEP, Factor.MOOD],
+  // };
 
   // state: State = {
-  //   symptomsAndFactors: {},
+  //   symptomsAndFactors: this.symptomsAndFactors,
   // };
+
+  state: State = {
+    symptomsAndFactors: {},
+  };
 
   componentDidMount() {
     // uncomment to get out of development mode and the code below
-    // this.props.history.push("/setSymptoms");
+    this.props.history.push("/setSymptoms");
 
     //  for development
-    this.props.history.push("/main/entries/");
+    // this.props.history.push("/main/entries/");
   }
 
-  setSymptomsAndFactors = (symptomsAndFactors: SymptomsAndFactors) => {
+  setSymptomsAndFactors = (symptom: Symptom, factor?: Factor) => {
+    const symptomsAndFactors = this.state.symptomsAndFactors;
+    const factorList = symptomsAndFactors[symptom];
+
+    if (!factor) {
+      //toggle symptom
+      if (!factorList) {
+        // symptom doesn't exist. Add it.
+        symptomsAndFactors[symptom] = [];
+      } else {
+        delete symptomsAndFactors[symptom];
+      }
+    } else {
+      // toggle factor
+      if (!factorList)
+        return Error("Symptom is null while trying to add factors.");
+
+      // if factor is there remove it, otherwise add it.
+      if (factorList.includes(factor)) {
+        const removedFactorList = factorList.filter(
+          (factor) => factor !== factor
+        );
+        symptomsAndFactors[symptom] = removedFactorList;
+      } else {
+        factorList.push(factor);
+      }
+    }
+
     this.setState({
       symptomsAndFactors,
     });
