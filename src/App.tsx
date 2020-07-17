@@ -21,25 +21,25 @@ interface Props {
 
 class AppInner extends Component<Props, State> {
   // for development
-  // symptomsAndFactors: SymptomsAndFactors = {
-  //   PAIN: [Factor.ACTIVITY, Factor.EXERCISE],
-  //   VERTIGO: [Factor.SLEEP, Factor.MOOD],
-  // };
-
-  // state: State = {
-  //   symptomsAndFactors: this.symptomsAndFactors,
-  // };
+  symptomsAndFactors: SymptomsAndFactors = {
+    PAIN: [Factor.ACTIVITY, Factor.EXERCISE],
+    VERTIGO: [Factor.SLEEP, Factor.MOOD],
+  };
 
   state: State = {
-    symptomsAndFactors: {},
+    symptomsAndFactors: this.symptomsAndFactors,
   };
+
+  // state: State = {
+  //   symptomsAndFactors: {},
+  // };
 
   componentDidMount() {
     // uncomment to get out of development mode and the code below
-    this.props.history.push("/setSymptoms");
+    // this.props.history.push("/setSymptoms");
 
     //  for development
-    // this.props.history.push("/main/entries/");
+    this.props.history.push("/main/entries/");
   }
 
   setSymptomsAndFactors = (symptom: Symptom, factor?: Factor) => {
