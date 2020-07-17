@@ -8,7 +8,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 interface Props {
   symptomsAndFactors: SymptomsAndFactors;
   setSelectedSymptom: (selectedSymptom: Symptom) => void;
-  selectedSymptom: Symptom;
+  selectedSymptom: Symptom | null;
 }
 
 const StyledFormControl = styled(FormControl)(({ theme }) => ({

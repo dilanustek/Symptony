@@ -10,10 +10,12 @@ import ViewEntriesPage from "./ViewEntriesPage";
 import AnalyticsPage from "./AnalyticsPage";
 import SettingsPage from "./SettingsPage";
 import NavBar from "./NavBar";
+import NewEntry from "./NewEntry";
 
 interface State {
   symptomsAndFactors: SymptomsAndFactors;
   allEntries: Entry[];
+  selectedSymptom: Symptom | null;
 }
 
 interface Props {
@@ -30,10 +32,13 @@ class AppInner extends Component<Props, State> {
   state: State = {
     symptomsAndFactors: this.symptomsAndFactors,
     allEntries: [],
+    selectedSymptom: Object.keys(this.symptomsAndFactors)[0] as Symptom,
   };
 
   // state: State = {
   //   symptomsAndFactors: {},
+  //  allEntries: [],
+  // selectedSymptom = null,
   // };
 
   componentDidMount() {
@@ -77,6 +82,21 @@ class AppInner extends Component<Props, State> {
     });
   };
 
+  setNewEntry = (newEntry: Entry) => {
+    const entries = this.state.allEntries;
+    entries.push(newEntry);
+
+    this.setState({
+      allEntries: entries,
+    });
+  };
+
+  setSelectedSymptom = (selectedSymptom: Symptom) => {
+    this.setState({
+      selectedSymptom,
+    });
+  };
+
   render() {
     return (
       <div className="App">
@@ -106,6 +126,8 @@ class AppInner extends Component<Props, State> {
             render={() => (
               <ViewEntriesPage
                 symptomsAndFactors={this.state.symptomsAndFactors}
+                selectedSymptom={this.state.selectedSymptom}
+                setSelectedSymptom={this.setSelectedSymptom}
               />
             )}
           />
@@ -125,7 +147,17 @@ class AppInner extends Component<Props, State> {
               />
             )}
           />
-          {/* <Route path="/newEntry" render{}</Route> */}
+          <Route
+            path="/newEntry"
+            render={() => (
+              <NewEntry
+                symptomsAndFactors={this.state.symptomsAndFactors}
+                setNewEntry={this.setNewEntry}
+                setSelectedSymptom={this.setSelectedSymptom}
+                selectedSymptom={this.state.selectedSymptom}
+              />
+            )}
+          />
         </Switch>
         <Route
           path="/main"
