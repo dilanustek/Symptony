@@ -1,10 +1,14 @@
 import React, { Component } from "react";
-import { Route, withRouter } from "react-router-dom";
+import { Route, withRouter, RouteComponentProps } from "react-router-dom";
 import { Switch } from "react-router-dom";
 import SetSymptomsPage from "./SetSymptomsPage";
+import SetFactorsPage from "./SetFactorsPage";
 import { History } from "history";
-import { SymptomsAndFactors } from "./SymptomHelpers";
+import { SymptomsAndFactors, Factor } from "./SymptomHelpers";
 import "./App.css";
+import ViewEntriesPage from "./ViewEntriesPage";
+import AnalyticsPage from "./AnalyticsPage";
+import SettingsPage from "./SettingsPage";
 
 interface State {
   symptomsAndFactors: SymptomsAndFactors;
@@ -20,7 +24,18 @@ class AppInner extends Component<Props, State> {
   };
 
   componentDidMount() {
-    this.props.history.push("/setSymptoms");
+    // uncomment to get out of development mode and the code below
+    // this.props.history.push("/setSymptoms");
+
+    // for development
+    const symptomsAndFactors: SymptomsAndFactors = {};
+    symptomsAndFactors.PAIN = [Factor.ACTIVITY, Factor.EXERCISE];
+
+    this.setState({
+      symptomsAndFactors,
+    });
+
+    this.props.history.push("/viewEntries");
   }
 
   setSymptomsAndFactors = (symptomsAndFactors: SymptomsAndFactors) => {
@@ -33,7 +48,17 @@ class AppInner extends Component<Props, State> {
     return (
       <div className="App">
         <Switch>
-          <Route path="/home" render={() => <div>hello antoine</div>} />
+          <Route
+            exact
+            path="/setFactors/:symptomIndex"
+            render={(props: RouteComponentProps) => (
+              <SetFactorsPage
+                symptomsAndFactors={this.state.symptomsAndFactors}
+                setSymptomsAndFactors={this.setSymptomsAndFactors}
+                match={props.match}
+              />
+            )}
+          />
           <Route
             path="/setSymptoms"
             render={() => (
@@ -43,11 +68,31 @@ class AppInner extends Component<Props, State> {
               />
             )}
           />
-          {/* <Route>path="/setFactors" render{}</Route>
-          <Route>path="/viewEntries" render{}</Route>
-          <Route>path="/newEntry" render{}</Route>
-          <Route>path="/analytics" render{}</Route>
-          <Route>path="/settings" render{}</Route> */}
+          <Route
+            path="/viewEntries"
+            render={() => (
+              <ViewEntriesPage
+                symptomsAndFactors={this.state.symptomsAndFactors}
+              />
+            )}
+          ></Route>
+          <Route
+            path="/analytics"
+            render={() => (
+              <AnalyticsPage
+                symptomsAndFactors={this.state.symptomsAndFactors}
+              />
+            )}
+          ></Route>
+          <Route
+            path="/settings"
+            render={() => (
+              <SettingsPage
+                symptomsAndFactors={this.state.symptomsAndFactors}
+              />
+            )}
+          ></Route>
+          {/* <Route path="/newEntry" render{}</Route> */}
         </Switch>
       </div>
     );

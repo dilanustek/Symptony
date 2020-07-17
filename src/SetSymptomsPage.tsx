@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./setSymptoms.css";
-import { Symptom, SymptomsAndFactors } from "./SymptomHelpers";
+import { Symptom, SymptomsAndFactors, SymptomNames } from "./SymptomHelpers";
 import TileButton from "./TileButton";
 import NextButton from "./NextButton";
 import { Typography } from "@material-ui/core";
@@ -30,28 +30,34 @@ class SetSymptomsPage extends Component<Props, {}> {
         <TileButton
           key={symptom}
           toggleSymptom={() => this.toggleSymptom(symptom)}
-          symptom={symptom}
-          symptomSelected={this.props.symptomsAndFactors[symptom] !== undefined}
+          tileName={SymptomNames[symptom]}
+          isSelected={this.props.symptomsAndFactors[symptom] !== undefined}
         />
       </Grid>
     ));
   }
 
   render() {
+    console.log(this.props.symptomsAndFactors);
     return (
       <div className="onboardContainer">
-        <Typography variant="h6">Customize (1/2)</Typography>
-        <Typography variant="h3">
-          Which symptoms do you want to track?
-        </Typography>
-        <div className="sympTiles">
-          <Grid container spacing={2}>
-            {this.getSymptomTiles()}
-          </Grid>
+        <div className="top">
+          <Typography variant="h3">
+            Which symptoms do you want to track?
+          </Typography>
+          <div className="sympTiles">
+            <Grid container spacing={2}>
+              {this.getSymptomTiles()}
+            </Grid>
+          </div>
         </div>
-        <div className="submitBtn">
-          <NextButton label="Next" />
-        </div>
+        {Object.entries(this.props.symptomsAndFactors).length === 0 ? (
+          <div className="submitBtn"></div>
+        ) : (
+          <div className="submitBtn">
+            <NextButton label="Next" path="/setFactors/0" />
+          </div>
+        )}
       </div>
     );
   }
