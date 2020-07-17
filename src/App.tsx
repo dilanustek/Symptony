@@ -4,7 +4,7 @@ import { Switch } from "react-router-dom";
 import SetSymptomsPage from "./SetSymptomsPage";
 import SetFactorsPage from "./SetFactorsPage";
 import { History } from "history";
-import { SymptomsAndFactors, Factor, Symptom } from "./SymptomHelpers";
+import { SymptomsAndFactors, Factor, Symptom, Entry } from "./SymptomHelpers";
 import "./App.css";
 import ViewEntriesPage from "./ViewEntriesPage";
 import AnalyticsPage from "./AnalyticsPage";
@@ -13,6 +13,7 @@ import NavBar from "./NavBar";
 
 interface State {
   symptomsAndFactors: SymptomsAndFactors;
+  allEntries: Entry[];
 }
 
 interface Props {
@@ -28,6 +29,7 @@ class AppInner extends Component<Props, State> {
 
   state: State = {
     symptomsAndFactors: this.symptomsAndFactors,
+    allEntries: [],
   };
 
   // state: State = {
