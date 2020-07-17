@@ -39,7 +39,7 @@ class AppInner extends Component<Props, State> {
     // this.props.history.push("/setSymptoms");
 
     //  for development
-    this.props.history.push("/main/viewEntries/");
+    this.props.history.push("/main/entries/");
   }
 
   setSymptomsAndFactors = (symptomsAndFactors: SymptomsAndFactors) => {
@@ -53,17 +53,6 @@ class AppInner extends Component<Props, State> {
       <div className="App">
         <Switch>
           <Route
-            exact
-            path="/setFactors/:symptomIndex"
-            render={(props: RouteComponentProps) => (
-              <SetFactorsPage
-                symptomsAndFactors={this.state.symptomsAndFactors}
-                setSymptomsAndFactors={this.setSymptomsAndFactors}
-                match={props.match}
-              />
-            )}
-          />
-          <Route
             path="/setSymptoms"
             render={() => (
               <SetSymptomsPage
@@ -73,7 +62,18 @@ class AppInner extends Component<Props, State> {
             )}
           />
           <Route
-            path="/main/viewEntries"
+            exact
+            path="/setFactors/:symptomIndex"
+            render={(props: RouteComponentProps) => (
+              <SetFactorsPage
+                symptomsAndFactors={this.state.symptomsAndFactors}
+                setSymptomsAndFactors={this.setSymptomsAndFactors}
+                symptomIndexParams={props.match.params}
+              />
+            )}
+          />
+          <Route
+            path="/main/entries"
             render={() => (
               <ViewEntriesPage
                 symptomsAndFactors={this.state.symptomsAndFactors}

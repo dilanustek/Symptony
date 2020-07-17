@@ -15,7 +15,7 @@ import Grid from "@material-ui/core/Grid";
 interface Props {
   setSymptomsAndFactors: (symptomsAndFactors: SymptomsAndFactors) => void;
   symptomsAndFactors: SymptomsAndFactors;
-  match: any;
+  symptomIndexParams: any;
 }
 
 class SetFactorsPage extends Component<Props, {}> {
@@ -57,7 +57,7 @@ class SetFactorsPage extends Component<Props, {}> {
   }
 
   render() {
-    const symptomIndexParam = this.props.match.params.symptomIndex;
+    const symptomIndexParam = this.props.symptomIndexParams.symptomIndex;
     const symptomIndex = parseInt(symptomIndexParam);
     const sympKeys = Object.keys(this.props.symptomsAndFactors);
     const sympStr = sympKeys[symptomIndex] as Symptom;
@@ -94,7 +94,7 @@ class SetFactorsPage extends Component<Props, {}> {
             path={
               sympKeys.length > symptomIndex + 1
                 ? "/setFactors/" + (symptomIndex + 1)
-                : "/main/ViewEntries"
+                : "/main/entries"
             }
           />
         </div>

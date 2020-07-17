@@ -38,7 +38,6 @@ class SetSymptomsPage extends Component<Props, {}> {
   }
 
   render() {
-    console.log(this.props.symptomsAndFactors);
     return (
       <div className="onboardContainer">
         <div className="top">

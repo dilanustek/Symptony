@@ -7,35 +7,13 @@ import Settings from "@material-ui/icons/Settings";
 import "./navBar.css";
 import { History } from "history";
 
-// export default function NavBar() {
-//   const [value, setValue] = React.useState(0);
-//   const pathsArr = ["/viewEntries", "/analytics", "/settings"];
-
-//   const RouterNavBar = withRouter(({ history }) => (
-//     <BottomNavigation
-//       value={value}
-//       onChange={(event, newValue) => {
-//         setValue(newValue);
-//         history.push(pathsArr[newValue]);
-//       }}
-//       showLabels
-//       className="navBar"
-//     >
-//       <BottomNavigationAction label="Entries" icon={<List />} />
-//       <BottomNavigationAction label="Insights" icon={<TrendingUp />} />
-//       <BottomNavigationAction label="Settings" icon={<Settings />} />
-//     </BottomNavigation>
-//   ));
-
-//   return <RouterNavBar />;
-// }
 interface Props {
   history: History;
 }
 
 export default function NavBar(props: Props) {
   const [value, setValue] = React.useState(0);
-  const pathsArr = ["/main/viewEntries", "/main/analytics", "/main/settings"];
+  const pathsArr = ["/main/entries", "/main/analytics", "/main/settings"];
 
   return (
     <BottomNavigation
