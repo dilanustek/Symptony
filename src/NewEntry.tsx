@@ -5,7 +5,7 @@ import {
   SymptomsAndFactors,
   EntryFactorValue,
 } from "./SymptomHelpers";
-import { Typography } from "@material-ui/core";
+import { Typography, GridList, Button } from "@material-ui/core";
 import SelectedSymptomsDropdown from "./SelectedSymptomsDrowdown";
 import Grid from "@material-ui/core/Grid";
 import DateTimePicker from "./DateTimePicker";
@@ -55,7 +55,7 @@ class NewEntry extends Component<Props, State> {
     console.log("new entry page");
     return (
       <>
-        <Grid container spacing={0}>
+        <Grid container direction="row" alignItems="center">
           <Grid item xs={2}>
             <CloseButton />
           </Grid>
@@ -65,7 +65,6 @@ class NewEntry extends Component<Props, State> {
           <LeftAlignedGrid item xs>
             <EntrySaveButton />
           </LeftAlignedGrid>
-          {/* </div> */}
         </Grid>
         <TitleDivider variant="fullWidth" />
 
@@ -78,6 +77,20 @@ class NewEntry extends Component<Props, State> {
           timeStamp={this.state.timeStamp}
           setTimeStamp={this.setTimeStamp}
         />
+
+        <Grid container>
+          <Grid item xs={12}>
+            <Typography variant="h6">Factor 1</Typography>
+          </Grid>
+          <Grid container justify="center">
+            <Grid item xs>
+              <Button>Value 1</Button>
+            </Grid>
+            <Grid item xs>
+              <Button>Value 2</Button>
+            </Grid>
+          </Grid>
+        </Grid>
       </>
     );
   }
