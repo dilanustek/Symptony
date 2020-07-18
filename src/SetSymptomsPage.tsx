@@ -40,13 +40,11 @@ class SetSymptomsPage extends Component<Props, {}> {
             </Grid>
           </div>
         </div>
-        {Object.entries(this.props.symptomsAndFactors).length === 0 ? (
-          <div className="submitBtn"></div>
-        ) : (
-          <div className="submitBtn">
+        <div className="submitBtn">
+          {Object.entries(this.props.symptomsAndFactors).length === 0 ? null : (
             <NextButton label="Next" path="/setFactors/0" />
-          </div>
-        )}
+          )}
+        </div>
       </div>
     );
   }
