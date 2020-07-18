@@ -30,6 +30,15 @@ const TitleDivider = styled(Divider)(({ theme }) => ({
   marginTop: theme.spacing(1),
 }));
 
+const NewEntryTitle = styled(Typography)(({ theme }) => ({
+  marginTop: theme.spacing(0),
+}));
+
+const LeftAlignedGrid = styled(Grid)(({ theme }) => ({
+  display: "flex",
+  justifyContent: "flex-end",
+}));
+
 class NewEntry extends Component<Props, State> {
   state: State = {
     timeStamp: new Date(Date.now()),
@@ -46,11 +55,18 @@ class NewEntry extends Component<Props, State> {
     console.log("new entry page");
     return (
       <>
-        <div className="headerRow">
-          <CloseButton />
-          <Typography variant="h5">New Entry</Typography>
-          <EntrySaveButton />
-        </div>
+        <Grid container spacing={0}>
+          <Grid item xs={2}>
+            <CloseButton />
+          </Grid>
+          <Grid item xs={7}>
+            <NewEntryTitle variant="h5">New Entry</NewEntryTitle>
+          </Grid>
+          <LeftAlignedGrid item xs>
+            <EntrySaveButton />
+          </LeftAlignedGrid>
+          {/* </div> */}
+        </Grid>
         <TitleDivider variant="fullWidth" />
 
         <SelectedSymptomsDropdown
