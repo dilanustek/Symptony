@@ -11,6 +11,7 @@ import Grid from "@material-ui/core/Grid";
 import DateTimePicker from "./DateTimePicker";
 import Divider from "@material-ui/core/Divider";
 import { styled } from "@material-ui/core/styles";
+import CloseButton from "./CloseButton";
 
 interface State {
   timeStamp: Date;
@@ -44,6 +45,7 @@ class NewEntry extends Component<Props, State> {
     console.log("new entry page");
     return (
       <>
+        <CloseButton />
         <Typography variant="h5">New Entry</Typography>
         <TitleDivider variant="fullWidth" />
 
