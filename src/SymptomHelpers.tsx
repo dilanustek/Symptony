@@ -31,6 +31,29 @@ export enum Factor {
   SLEEP = "SLEEP",
 }
 
+/// how to turn this into a class?
+// export type Factor5 = {
+//   id: string;
+//   name: string;
+// }
+
+// export type Other = {
+//   id: string;
+//   name: string;
+// }
+
+// const f:Factor5 = {id:"aaa",name:"aaaaa"};
+// const o:Other = {id:"assaa",name:"aaassaa"};
+
+// function foo2(a:Factor5){
+//   return a;
+// }
+
+// foo2(f);
+// foo2(o);
+// const s="aaaa";
+// foo2(s);
+
 export const FactorNames: { [key in Factor]: string } = {
   ACTIVITY: "Current Activity",
   EXERCISE: "Exercise",
@@ -47,14 +70,41 @@ export type SymptomsAndFactors = {
 
 // FACTORS' OPTIONS
 //Activity
-export enum ActivityOptions {
-  SITTING = "SITTING",
-  WALKING = "WALKING",
-  RUNNING = "RUNNING",
-  LAYING = "LAYING",
-}
+// export enum ActivityOptions {
+//   SITTING = "SITTING",
+//   WALKING = "WALKING",
+//   RUNNING = "RUNNING",
+//   LAYING = "LAYING",
+// }
 
-export const ActivityOptionNames: { [key in ActivityOptions]: string } = {
+// export const ActivityOptionNames: { [key in ActivityOptions]: string } = {
+//   SITTING: "Sitting",
+//   WALKING: "Walking",
+//   RUNNING: "Running",
+//   LAYING: "Laying down",
+// };
+
+export const ActivityOptions = [
+  "SITTING",
+  "WALKING",
+  "RUNNING",
+  "LAYING",
+] as const;
+type typeOfArray = typeof ActivityOptions;
+type ActivityOption = typeOfArray[number];
+
+export const ActivityOptionNames2: { [key in ActivityOption]: string } = {
+  SITTING: "Sitting",
+  WALKING: "Walking",
+  RUNNING: "Running",
+  LAYING: "Laying down",
+};
+
+// export const ActivityOptions = ["SITTING","WALKING","RUNNING","LAYING"] as const;
+// type typeOfArray = typeof ActivityOptions;
+// type ActivityOption = typeOfArray[number];
+
+export const ActivityOptionNames3: { [key: string]: string } = {
   SITTING: "Sitting",
   WALKING: "Walking",
   RUNNING: "Running",
@@ -100,16 +150,20 @@ type ExerciseEntry = {
   YES: boolean;
 };
 
-// all the etnries are in FactorEntries.
-type FactorEntries = {
+// all the entries are in FactorEntries.
+export type FactorEntry = {
   factors: Factor[];
-  activityEntry: ActivityEntry;
-  exerciseEntry: ExerciseEntry;
-  waterEntry: WaterEntry;
+  activityEntry?: ActivityEntry;
+  exerciseEntry?: ExerciseEntry;
+  waterEntry?: WaterEntry;
+};
+
+export type FactorEntry2 = {
+  [key in Factor]: [string];
 };
 
 export type Entry = {
   symptom: Symptom;
   timeStamp: Date;
-  currentFactorsArr: FactorEntries;
+  factorEntry: FactorEntry;
 };

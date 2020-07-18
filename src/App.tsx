@@ -37,8 +37,8 @@ class AppInner extends Component<Props, State> {
 
   // state: State = {
   //   symptomsAndFactors: {},
-  //  allEntries: [],
-  // selectedSymptom = null,
+  //   allEntries: [],
+  //   selectedSymptom: null,
   // };
 
   componentDidMount() {
