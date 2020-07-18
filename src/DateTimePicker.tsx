@@ -28,7 +28,6 @@ export default function DateTimePicker(props: Props) {
         <WideKeyboardDatePicker
           margin="normal"
           id="date-picker-dialog"
-          label="Date picker dialog"
           format="MM/dd/yyyy"
           value={props.timeStamp}
           onChange={props.setTimeStamp}
@@ -39,7 +38,6 @@ export default function DateTimePicker(props: Props) {
         <WideKeyboardTimePicker
           margin="normal"
           id="time-picker"
-          label="Time picker"
           value={props.timeStamp}
           onChange={props.setTimeStamp}
           KeyboardButtonProps={{
