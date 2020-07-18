@@ -3,16 +3,18 @@ import {
   Entry,
   Symptom,
   SymptomsAndFactors,
-  FactorEntry,
+  EntryFactorValue,
 } from "./SymptomHelpers";
 import { Typography } from "@material-ui/core";
 import SelectedSymptomsDropdown from "./SelectedSymptomsDrowdown";
 import Grid from "@material-ui/core/Grid";
 import DateTimePicker from "./DateTimePicker";
+import Divider from "@material-ui/core/Divider";
+import { styled } from "@material-ui/core/styles";
 
 interface State {
   timeStamp: Date;
-  factorEntries: FactorEntry[];
+  entryFactorValues: EntryFactorValue[];
 }
 
 interface Props {
@@ -22,10 +24,14 @@ interface Props {
   setSelectedSymptom: (symptom: Symptom) => void;
 }
 
+const TitleDivider = styled(Divider)(({ theme }) => ({
+  marginTop: theme.spacing(1),
+}));
+
 class NewEntry extends Component<Props, State> {
   state: State = {
     timeStamp: new Date(Date.now()),
-    factorEntries: [],
+    entryFactorValues: [],
   };
 
   setTimeStamp = (timeStamp: Date | null) => {
@@ -39,6 +45,8 @@ class NewEntry extends Component<Props, State> {
     return (
       <>
         <Typography variant="h5">New Entry</Typography>
+        <TitleDivider variant="fullWidth" />
+
         <SelectedSymptomsDropdown
           symptomsAndFactors={this.props.symptomsAndFactors}
           selectedSymptom={this.props.selectedSymptom}

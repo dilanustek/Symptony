@@ -6,17 +6,26 @@ import {
   KeyboardTimePicker,
   KeyboardDatePicker,
 } from "@material-ui/pickers";
+import { styled } from "@material-ui/core/styles";
 
 interface Props {
   timeStamp: Date;
   setTimeStamp: (timeStamp: Date | null) => void;
 }
 
+const WideKeyboardDatePicker = styled(KeyboardDatePicker)(({ theme }) => ({
+  width: "100%",
+}));
+
+const WideKeyboardTimePicker = styled(KeyboardTimePicker)(({ theme }) => ({
+  width: "100%",
+}));
+
 export default function DateTimePicker(props: Props) {
   return (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
       <Grid container justify="space-around">
-        <KeyboardDatePicker
+        <WideKeyboardDatePicker
           margin="normal"
           id="date-picker-dialog"
           label="Date picker dialog"
@@ -27,7 +36,7 @@ export default function DateTimePicker(props: Props) {
             "aria-label": "change date",
           }}
         />
-        <KeyboardTimePicker
+        <WideKeyboardTimePicker
           margin="normal"
           id="time-picker"
           label="Time picker"
