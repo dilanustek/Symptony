@@ -78,6 +78,7 @@ class NewEntry extends Component<Props, State> {
           setTimeStamp={this.setTimeStamp}
         />
 
+        {/* WORKING ON THIS */}
         <Grid container>
           <Grid item xs={12}>
             <Typography variant="h6">Factor 1</Typography>
