@@ -11,21 +11,28 @@ import { Typography, Button } from "@material-ui/core";
 interface Props {
   symptomsAndFactors: SymptomsAndFactors;
   symptom: Symptom;
+  setEntryFactorValue: (factor: Factor, value: string) => void;
 }
 
-function getFactorOptions(factor: Factor) {
+function getFactorOptions(
+  factor: Factor,
+  setEntryFactorValue: (factor: Factor, value: string) => void
+) {
   const values = FactorsAndValues[factor];
 
   return values.map((value) => (
     <Grid item xs>
-      <Button>{value}</Button>
+      <Button onClick={() => setEntryFactorValue(factor, value)}>
+        {value}
+      </Button>
     </Grid>
   ));
 }
 
 function getFactorsAndOptions(
   symptom: Symptom,
-  symptomsAndFactors: SymptomsAndFactors
+  symptomsAndFactors: SymptomsAndFactors,
+  setEntryFactorValue: (factor: Factor, value: string) => void
 ) {
   const factors = symptomsAndFactors[symptom];
   if (!factors) return null;
@@ -36,7 +43,7 @@ function getFactorsAndOptions(
         <Typography variant="h6">{factor}</Typography>
       </Grid>
       <Grid container justify="center">
-        {getFactorOptions(factor)}
+        {getFactorOptions(factor, setEntryFactorValue)}
       </Grid>
     </Grid>
   ));
@@ -45,7 +52,11 @@ function getFactorsAndOptions(
 const FactorEntryGridItems = (props: Props) => {
   return (
     <Grid container>
-      {getFactorsAndOptions(props.symptom, props.symptomsAndFactors)}
+      {getFactorsAndOptions(
+        props.symptom,
+        props.symptomsAndFactors,
+        props.setEntryFactorValue
+      )}
     </Grid>
   );
 };

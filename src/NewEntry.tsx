@@ -4,6 +4,7 @@ import {
   Symptom,
   SymptomsAndFactors,
   EntryFactorValue,
+  Factor,
 } from "./SymptomHelpers";
 import { Typography, Button } from "@material-ui/core";
 import SelectedSymptomsDropdown from "./SelectedSymptomsDrowdown";
@@ -62,6 +63,17 @@ class NewEntry extends Component<Props, State> {
     this.props.setNewEntry(entry);
   };
 
+  setEntryFactorValue = (factor: Factor, value: string) => {
+    const newEntryFactorValue = {
+      factor,
+      value,
+    };
+    const newEntryFactorValues = this.state.entryFactorValues;
+    newEntryFactorValues.push(newEntryFactorValue);
+
+    this.setState({ entryFactorValues: newEntryFactorValues });
+  };
+
   render() {
     console.log("new entry page");
     return (
@@ -92,6 +104,7 @@ class NewEntry extends Component<Props, State> {
         <FactorEntryGridItems
           symptomsAndFactors={this.props.symptomsAndFactors}
           symptom={this.props.selectedSymptom}
+          setEntryFactorValue={this.setEntryFactorValue}
         />
       </>
     );
