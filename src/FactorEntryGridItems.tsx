@@ -31,8 +31,13 @@ function getFactorsAndOptions(
   if (!factors) return null;
 
   return factors.map((factor) => (
-    <Grid container justify="center">
-      {getFactorOptions(factor)}
+    <Grid container>
+      <Grid item xs={12}>
+        <Typography variant="h6">{factor}</Typography>
+      </Grid>
+      <Grid container justify="center">
+        {getFactorOptions(factor)}
+      </Grid>
     </Grid>
   ));
 }
@@ -40,9 +45,6 @@ function getFactorsAndOptions(
 const FactorEntryGridItems = (props: Props) => {
   return (
     <Grid container>
-      <Grid item xs={12}>
-        <Typography variant="h6">Factor 1</Typography>
-      </Grid>
       {getFactorsAndOptions(props.symptom, props.symptomsAndFactors)}
     </Grid>
   );

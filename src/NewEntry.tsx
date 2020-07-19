@@ -89,7 +89,6 @@ class NewEntry extends Component<Props, State> {
           setTimeStamp={this.setTimeStamp}
         />
 
-        {/* WORKING ON THIS */}
         <FactorEntryGridItems
           symptomsAndFactors={this.props.symptomsAndFactors}
           symptom={this.props.selectedSymptom}
