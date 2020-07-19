@@ -31,29 +31,6 @@ export enum Factor {
   SLEEP = "SLEEP",
 }
 
-/// how to turn this into a class?
-// export type Factor5 = {
-//   id: string;
-//   name: string;
-// }
-
-// export type Other = {
-//   id: string;
-//   name: string;
-// }
-
-// const f:Factor5 = {id:"aaa",name:"aaaaa"};
-// const o:Other = {id:"assaa",name:"aaassaa"};
-
-// function foo2(a:Factor5){
-//   return a;
-// }
-
-// foo2(f);
-// foo2(o);
-// const s="aaaa";
-// foo2(s);
-
 export const FactorNames: { [key in Factor]: string } = {
   ACTIVITY: "Current Activity",
   EXERCISE: "Exercise",
@@ -69,94 +46,11 @@ export type SymptomsAndFactors = {
 };
 
 // FACTORS' OPTIONS
-//Activity
-// export enum ActivityOptions {
-//   SITTING = "SITTING",
-//   WALKING = "WALKING",
-//   RUNNING = "RUNNING",
-//   LAYING = "LAYING",
-// }
 
-// export const ActivityOptionNames: { [key in ActivityOptions]: string } = {
-//   SITTING: "Sitting",
-//   WALKING: "Walking",
-//   RUNNING: "Running",
-//   LAYING: "Laying down",
-// };
-
-// export const ActivityOptions = [
-//   "SITTING",
-//   "WALKING",
-//   "RUNNING",
-//   "LAYING",
-// ] as const;
-// type typeOfArray = typeof ActivityOptions;
-// type ActivityOption = typeOfArray[number];
-
-// export const ActivityOptionNames2: { [key in ActivityOption]: string } = {
-//   SITTING: "Sitting",
-//   WALKING: "Walking",
-//   RUNNING: "Running",
-//   LAYING: "Laying down",
-// };
-
-// export const ActivityOptions = ["SITTING","WALKING","RUNNING","LAYING"] as const;
-// type typeOfArray = typeof ActivityOptions;
-// type ActivityOption = typeOfArray[number];
-
-// export const ActivityOptionNames3: { [key: string]: string } = {
-//   SITTING: "Sitting",
-//   WALKING: "Walking",
-//   RUNNING: "Running",
-//   LAYING: "Laying down",
-// };
-
-// type ActivityEntry = {
-//   SITTING: boolean;
-//   WALKING: boolean;
-//   RUNNING: boolean;
-//   LAYING: boolean;
-// };
-
-export var ActivityValues = ["Sitting", "Walking", "Running", "Laying down"];
-
-//Water
-// export enum WaterOptions {
-//   BAD = "BAD",
-//   GOOD = "GOOD",
-// }
-
-// export const WaterOptionNames: { [key in WaterOptions]: string } = {
-//   BAD: "Bad",
-//   GOOD: "Good",
-// };
-
-// type WaterEntry = {
-//   BAD: boolean;
-//   GOOD: boolean;
-// };
-
-export var WaterValues = ["Not enough", "Enough"];
-
-//Exercise
-// export enum ExerciseOptions {
-//   NONE = "NONE",
-//   YES = "YES",
-// }
-
-// export const ExerciseOptionNames: { [key in ExerciseOptions]: string } = {
-//   NONE: "No Exercise",
-//   YES: "Exercised",
-// };
-
-// type ExerciseEntry = {
-//   NONE: boolean;
-//   YES: boolean;
-// };
-
-export var ExerciseValues = ["No exercise", "Exercised"];
-
-export var FoodValues = [
+export const ActivityValues = ["Sitting", "Walking", "Running", "Laying down"];
+export const WaterValues = ["Not enough", "Enough"];
+export const ExerciseValues = ["No exercise", "Exercised"];
+export const FoodValues = [
   "Carbohydrates",
   "Sugar",
   "Protein",
@@ -164,8 +58,8 @@ export var FoodValues = [
   "Lactose",
   "Gluten",
 ];
-export var MoodValues = ["Stress", "Anxiety"];
-export var SleepValues = ["Not enough", "Too much"];
+export const MoodValues = ["Stress", "Anxiety"];
+export const SleepValues = ["Not enough", "Too much"];
 
 export const FactorsAndValues = {
   ACTIVITY: ActivityValues,
@@ -176,19 +70,13 @@ export const FactorsAndValues = {
   SLEEP: SleepValues,
 };
 
-// all the entries are in FactorEntries.
-// export type FactorEntry = {
-//   factors: Factor[];
-//   activityEntry?: ActivityEntry;
-//   exerciseEntry?: ExerciseEntry;
-//   waterEntry?: WaterEntry;
-// };
-
+// EntryFactorValue type is a factor and value pair that will be stored as an  array for each entry.
 export type EntryFactorValue = {
   factor: Factor;
   value: string;
 };
 
+// Each entry has  a symptom. timestamp,  and a list of factor-value pairs(EntryFactorValue)
 export type Entry = {
   symptom: Symptom;
   timeStamp: Date;

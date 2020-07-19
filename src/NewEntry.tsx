@@ -69,9 +69,12 @@ class NewEntry extends Component<Props, State> {
       value,
     };
     const newEntryFactorValues = this.state.entryFactorValues;
-    newEntryFactorValues.push(newEntryFactorValue);
 
-    this.setState({ entryFactorValues: newEntryFactorValues });
+    this.setState((state) => {
+      return {
+        entryFactorValues: [...state.entryFactorValues, newEntryFactorValue],
+      };
+    });
   };
 
   render() {

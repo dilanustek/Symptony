@@ -7,7 +7,7 @@ import { Typography } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 
 interface Props {
-  setSymptomsAndFactors: (symptom: Symptom) => void;
+  toggleSymptom: (symptom: Symptom) => void;
   symptomsAndFactors: SymptomsAndFactors;
   setSelectedSymptom: (syptom: Symptom) => void;
 }
@@ -20,7 +20,7 @@ class SetSymptomsPage extends Component<Props, {}> {
       <Grid item xs key={symptom}>
         <TileButton
           key={symptom}
-          onClick={() => this.props.setSymptomsAndFactors(symptom)}
+          onClick={() => this.props.toggleSymptom(symptom)}
           tileName={SymptomNames[symptom]}
           isSelected={this.props.symptomsAndFactors[symptom] !== undefined}
         />
@@ -43,15 +43,7 @@ class SetSymptomsPage extends Component<Props, {}> {
         </div>
         <div className="submitBtn">
           {Object.entries(this.props.symptomsAndFactors).length === 0 ? null : (
-            <NextButton
-              label="Next"
-              path="/setFactors/0"
-              onNext={() => {
-                this.props.setSelectedSymptom(
-                  Object.keys(this.props.symptomsAndFactors)[0] as Symptom
-                );
-              }}
-            />
+            <NextButton label="Next" path="/setFactors/0" />
           )}
         </div>
       </div>

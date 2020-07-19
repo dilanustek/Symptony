@@ -5,7 +5,6 @@ import Button from "@material-ui/core/Button";
 interface Props {
   label: string;
   path: string;
-  onNext: () => void;
 }
 
 const NextButton = (props: Props) => {
@@ -16,7 +15,6 @@ const NextButton = (props: Props) => {
       color="primary"
       onClick={() => {
         history.push(props.path);
-        props.onNext();
       }}
     >
       {props.label}

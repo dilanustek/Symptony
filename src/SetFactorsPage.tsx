@@ -13,7 +13,7 @@ import { Typography } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 
 interface Props {
-  setSymptomsAndFactors: (symptom: Symptom, factor: Factor) => void;
+  toggleFactors: (symptom: Symptom, factor: Factor) => void;
   symptomsAndFactors: SymptomsAndFactors;
   symptomIndexParams: any;
 }
@@ -26,7 +26,7 @@ class SetFactorsPage extends Component<Props, {}> {
       <Grid item xs key={factor}>
         <TileButton
           key={factor}
-          onClick={() => this.props.setSymptomsAndFactors(symptom, factor)}
+          onClick={() => this.props.toggleFactors(symptom, factor)}
           tileName={FactorNames[factor]}
           isSelected={
             this.props.symptomsAndFactors[symptom]?.includes(factor) === true
@@ -42,6 +42,7 @@ class SetFactorsPage extends Component<Props, {}> {
     const sympKeys = Object.keys(this.props.symptomsAndFactors);
     const sympStr = sympKeys[symptomIndex] as Symptom;
     const symp = Symptom[sympStr];
+    const symptomName = SymptomNames[symp];
 
     return (
       <div className="onboardContainer">
@@ -49,16 +50,15 @@ class SetFactorsPage extends Component<Props, {}> {
           <div>
             <div>
               <Typography variant="h3">
-                Which of the following might be related to{" "}
-                <b>{SymptomNames[symp]}</b>?
+                Which of the following might be related to <b>{symptomName}</b>?
               </Typography>
               <Typography variant="h6">
                 ({symptomIndex + 1}/{sympKeys.length})
               </Typography>
             </div>
             <Typography variant="h6">
-              When you experience acid reflux, we will help you record what was
-              happening. Then the app analyze this data to show you
+              When you experience any {symptomName}, we will help you record
+              what was happening. Then the app analyze this data to show you
               correlations.
             </Typography>
           </div>
@@ -70,13 +70,12 @@ class SetFactorsPage extends Component<Props, {}> {
         </div>
         <div className="submitBtn">
           <NextButton
-            label="Done"
+            label="Get Started"
             path={
               sympKeys.length > symptomIndex + 1
                 ? "/setFactors/" + (symptomIndex + 1)
                 : "/main/entries"
             }
-            onNext={() => {}}
           />
         </div>
       </div>

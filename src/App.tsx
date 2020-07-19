@@ -81,11 +81,8 @@ class AppInner extends Component<Props, State> {
   };
 
   setNewEntry = (newEntry: Entry) => {
-    const entries = this.state.allEntries;
-    entries.push(newEntry);
-
-    this.setState({
-      allEntries: entries,
+    this.setState((state) => {
+      return { allEntries: [...state.allEntries, newEntry] };
     });
   };
 
@@ -104,7 +101,7 @@ class AppInner extends Component<Props, State> {
             render={() => (
               <SetSymptomsPage
                 symptomsAndFactors={this.state.symptomsAndFactors}
-                setSymptomsAndFactors={this.setSymptomsAndFactors}
+                toggleSymptom={this.setSymptomsAndFactors}
                 setSelectedSymptom={this.setSelectedSymptom}
               />
             )}
@@ -115,7 +112,7 @@ class AppInner extends Component<Props, State> {
             render={(props: RouteComponentProps) => (
               <SetFactorsPage
                 symptomsAndFactors={this.state.symptomsAndFactors}
-                setSymptomsAndFactors={this.setSymptomsAndFactors}
+                toggleFactors={this.setSymptomsAndFactors}
                 symptomIndexParams={props.match.params}
               />
             )}
@@ -164,7 +161,18 @@ class AppInner extends Component<Props, State> {
         </Switch>
         <Route
           path="/main"
-          render={(props) => <NavBar history={props.history} />}
+          render={(props) => {
+            if (!this.state.selectedSymptom) {
+              this.setState((state) => {
+                const firstSymptom = Object.keys(
+                  state.symptomsAndFactors
+                )[0] as Symptom;
+
+                return { selectedSymptom: firstSymptom };
+              });
+            }
+            return <NavBar history={props.history} />;
+          }}
         />
       </div>
     );
