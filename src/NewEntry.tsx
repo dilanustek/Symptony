@@ -6,7 +6,7 @@ import {
   EntryFactorValue,
   Factor,
 } from "./SymptomHelpers";
-import { Typography, Button } from "@material-ui/core";
+import { Typography } from "@material-ui/core";
 import SelectedSymptomsDropdown from "./SelectedSymptomsDrowdown";
 import Grid from "@material-ui/core/Grid";
 import DateTimePicker from "./DateTimePicker";
@@ -75,7 +75,6 @@ class NewEntry extends Component<Props, State> {
   };
 
   render() {
-    console.log("new entry page");
     return (
       <>
         <Grid container direction="row" alignItems="center">
@@ -104,6 +103,7 @@ class NewEntry extends Component<Props, State> {
         <FactorEntryGridItems
           symptomsAndFactors={this.props.symptomsAndFactors}
           symptom={this.props.selectedSymptom}
+          entryFactorValues={this.state.entryFactorValues}
           setEntryFactorValue={this.setEntryFactorValue}
         />
       </>

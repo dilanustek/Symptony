@@ -68,9 +68,7 @@ class AppInner extends Component<Props, State> {
 
       // if factor is there remove it, otherwise add it.
       if (factorList.includes(factor)) {
-        const removedFactorList = factorList.filter(
-          (factor) => factor !== factor
-        );
+        const removedFactorList = factorList.filter((fac) => fac !== factor);
         symptomsAndFactors[symptom] = removedFactorList;
       } else {
         factorList.push(factor);

@@ -5,7 +5,7 @@ import { purple } from "@material-ui/core/colors/";
 import { Typography } from "@material-ui/core";
 
 interface Props {
-  toggleSymptom: () => void;
+  onClick: () => void;
   tileName: string;
   isSelected: boolean;
 }
@@ -20,11 +20,7 @@ const TileButton = (props: Props) => {
 
   return (
     <>
-      <TileBtn
-        variant="contained"
-        color="secondary"
-        onClick={props.toggleSymptom}
-      >
+      <TileBtn variant="contained" color="secondary" onClick={props.onClick}>
         <Typography>{props.tileName}</Typography>
       </TileBtn>
     </>

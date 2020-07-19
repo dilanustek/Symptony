@@ -1,7 +1,6 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
 import Button from "@material-ui/core/Button";
-import { Entry } from "./SymptomHelpers";
 
 interface Props {
   saveEntry: () => void;

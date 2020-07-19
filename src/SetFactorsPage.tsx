@@ -26,9 +26,7 @@ class SetFactorsPage extends Component<Props, {}> {
       <Grid item xs key={factor}>
         <TileButton
           key={factor}
-          toggleSymptom={() =>
-            this.props.setSymptomsAndFactors(symptom, factor)
-          }
+          onClick={() => this.props.setSymptomsAndFactors(symptom, factor)}
           tileName={FactorNames[factor]}
           isSelected={
             this.props.symptomsAndFactors[symptom]?.includes(factor) === true
@@ -53,9 +51,9 @@ class SetFactorsPage extends Component<Props, {}> {
               <Typography variant="h3">
                 Which of the following might be related to{" "}
                 <b>{SymptomNames[symp]}</b>?
-                <Typography variant="h6">
-                  ({symptomIndex + 1}/{sympKeys.length})
-                </Typography>
+              </Typography>
+              <Typography variant="h6">
+                ({symptomIndex + 1}/{sympKeys.length})
               </Typography>
             </div>
             <Typography variant="h6">

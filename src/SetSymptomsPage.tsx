@@ -20,7 +20,7 @@ class SetSymptomsPage extends Component<Props, {}> {
       <Grid item xs key={symptom}>
         <TileButton
           key={symptom}
-          toggleSymptom={() => this.props.setSymptomsAndFactors(symptom)}
+          onClick={() => this.props.setSymptomsAndFactors(symptom)}
           tileName={SymptomNames[symptom]}
           isSelected={this.props.symptomsAndFactors[symptom] !== undefined}
         />
