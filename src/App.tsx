@@ -49,36 +49,94 @@ class AppInner extends Component<Props, State> {
     // this.props.history.push("/main/entries/");
   }
 
-  setSymptomsAndFactors = (symptom: Symptom, factor?: Factor) => {
+  toggleSymptom = (symptom: Symptom) => {
+    const factorList = this.state.symptomsAndFactors[symptom];
+
+    if (!factorList) {
+      // symptom doesn't exist. Add it.
+      this.setState((state) => {
+        const symptomsAndFactors = state.symptomsAndFactors;
+        symptomsAndFactors[symptom] = [];
+        return {
+          symptomsAndFactors,
+        };
+      });
+    } else {
+      // delete symptom
+      this.setState((state) => {
+        const symptomsAndFactors = state.symptomsAndFactors;
+        delete symptomsAndFactors[symptom];
+        return {
+          symptomsAndFactors,
+        };
+      });
+    }
+  };
+
+  toggleFactor = (symptom: Symptom, factor: Factor) => {
     const symptomsAndFactors = this.state.symptomsAndFactors;
     const factorList = symptomsAndFactors[symptom];
 
-    if (!factor) {
-      //toggle symptom
-      if (!factorList) {
-        // symptom doesn't exist. Add it.
-        symptomsAndFactors[symptom] = [];
-      } else {
-        delete symptomsAndFactors[symptom];
-      }
-    } else {
-      // toggle factor
-      if (!factorList)
-        return Error("Symptom is null while trying to add factors.");
+    if (!factorList)
+      return Error("Symptom is null while trying to add factors.");
 
-      // if factor is there remove it, otherwise add it.
-      if (factorList.includes(factor)) {
-        const removedFactorList = factorList.filter((fac) => fac !== factor);
+    // if factor is there remove it, otherwise add it.
+    if (factorList.includes(factor)) {
+      this.setState((state) => {
+        const symptomsAndFactors = state.symptomsAndFactors;
+        const factorList = symptomsAndFactors[symptom];
+        const removedFactorList = factorList?.filter((fac) => fac !== factor);
         symptomsAndFactors[symptom] = removedFactorList;
-      } else {
-        factorList.push(factor);
-      }
+        return {
+          symptomsAndFactors,
+        };
+      });
+    } else {
+      this.setState((state) => {
+        const symptomsAndFactors = state.symptomsAndFactors;
+        const factorList = symptomsAndFactors[symptom];
+        factorList?.push(factor);
+        return {
+          symptomsAndFactors,
+        };
+      });
     }
 
     this.setState({
       symptomsAndFactors,
     });
   };
+
+  // setSymptomsAndFactors = (symptom: Symptom, factor?: Factor) => {
+  //   const symptomsAndFactors = this.state.symptomsAndFactors;
+  //   const factorList = symptomsAndFactors[symptom];
+
+  //   if (!factor) {
+  //     //toggle symptom
+  //     if (!factorList) {
+  //       // symptom doesn't exist. Add it.
+  //       symptomsAndFactors[symptom] = [];
+  //     } else {
+  //       delete symptomsAndFactors[symptom];
+  //     }
+  //   } else {
+  //     // toggle factor
+  //     if (!factorList)
+  //       return Error("Symptom is null while trying to add factors.");
+
+  //     // if factor is there remove it, otherwise add it.
+  //     if (factorList.includes(factor)) {
+  //       const removedFactorList = factorList.filter((fac) => fac !== factor);
+  //       symptomsAndFactors[symptom] = removedFactorList;
+  //     } else {
+  //       factorList.push(factor);
+  //     }
+  //   }
+
+  //   this.setState({
+  //     symptomsAndFactors,
+  //   });
+  // };
 
   setNewEntry = (newEntry: Entry) => {
     this.setState((state) => {
@@ -101,7 +159,7 @@ class AppInner extends Component<Props, State> {
             render={() => (
               <SetSymptomsPage
                 symptomsAndFactors={this.state.symptomsAndFactors}
-                toggleSymptom={this.setSymptomsAndFactors}
+                toggleSymptom={this.toggleSymptom}
                 setSelectedSymptom={this.setSelectedSymptom}
               />
             )}
@@ -112,7 +170,7 @@ class AppInner extends Component<Props, State> {
             render={(props: RouteComponentProps) => (
               <SetFactorsPage
                 symptomsAndFactors={this.state.symptomsAndFactors}
-                toggleFactors={this.setSymptomsAndFactors}
+                toggleFactors={this.toggleFactor}
                 symptomIndexParams={props.match.params}
               />
             )}
