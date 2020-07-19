@@ -8,7 +8,7 @@ import AddNewEntryButton from "./AddNewEntryButton";
 
 interface Props {
   symptomsAndFactors: SymptomsAndFactors;
-  selectedSymptom: Symptom | null;
+  selectedSymptom: Symptom;
   setSelectedSymptom: (selectedSymptom: Symptom) => void;
 }
 

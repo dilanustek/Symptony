@@ -9,6 +9,7 @@ import Grid from "@material-ui/core/Grid";
 interface Props {
   setSymptomsAndFactors: (symptom: Symptom) => void;
   symptomsAndFactors: SymptomsAndFactors;
+  setSelectedSymptom: (syptom: Symptom) => void;
 }
 
 class SetSymptomsPage extends Component<Props, {}> {
@@ -42,7 +43,15 @@ class SetSymptomsPage extends Component<Props, {}> {
         </div>
         <div className="submitBtn">
           {Object.entries(this.props.symptomsAndFactors).length === 0 ? null : (
-            <NextButton label="Next" path="/setFactors/0" />
+            <NextButton
+              label="Next"
+              path="/setFactors/0"
+              onNext={() => {
+                this.props.setSelectedSymptom(
+                  Object.keys(this.props.symptomsAndFactors)[0] as Symptom
+                );
+              }}
+            />
           )}
         </div>
       </div>

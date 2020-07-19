@@ -5,7 +5,7 @@ import {
   SymptomsAndFactors,
   EntryFactorValue,
 } from "./SymptomHelpers";
-import { Typography, GridList, Button } from "@material-ui/core";
+import { Typography, Button } from "@material-ui/core";
 import SelectedSymptomsDropdown from "./SelectedSymptomsDrowdown";
 import Grid from "@material-ui/core/Grid";
 import DateTimePicker from "./DateTimePicker";
@@ -13,6 +13,7 @@ import Divider from "@material-ui/core/Divider";
 import { styled } from "@material-ui/core/styles";
 import CloseButton from "./CloseButton";
 import EntrySaveButton from "./EntrySaveButton";
+import FactorEntryGridItems from "./FactorEntryGridItems";
 
 interface State {
   timeStamp: Date;
@@ -22,7 +23,7 @@ interface State {
 interface Props {
   setNewEntry: (newEntry: Entry) => void;
   symptomsAndFactors: SymptomsAndFactors;
-  selectedSymptom: Symptom | null;
+  selectedSymptom: Symptom;
   setSelectedSymptom: (symptom: Symptom) => void;
 }
 
@@ -51,6 +52,16 @@ class NewEntry extends Component<Props, State> {
     }
   };
 
+  saveEntry = () => {
+    const entry: Entry = {
+      symptom: this.props.selectedSymptom,
+      timeStamp: this.state.timeStamp,
+      entryFactorValues: this.state.entryFactorValues,
+    };
+
+    this.props.setNewEntry(entry);
+  };
+
   render() {
     console.log("new entry page");
     return (
@@ -63,7 +74,7 @@ class NewEntry extends Component<Props, State> {
             <NewEntryTitle variant="h5">New Entry</NewEntryTitle>
           </Grid>
           <LeftAlignedGrid item xs>
-            <EntrySaveButton />
+            <EntrySaveButton saveEntry={this.saveEntry} />
           </LeftAlignedGrid>
         </Grid>
         <TitleDivider variant="fullWidth" />
@@ -79,19 +90,10 @@ class NewEntry extends Component<Props, State> {
         />
 
         {/* WORKING ON THIS */}
-        <Grid container>
-          <Grid item xs={12}>
-            <Typography variant="h6">Factor 1</Typography>
-          </Grid>
-          <Grid container justify="center">
-            <Grid item xs>
-              <Button>Value 1</Button>
-            </Grid>
-            <Grid item xs>
-              <Button>Value 2</Button>
-            </Grid>
-          </Grid>
-        </Grid>
+        <FactorEntryGridItems
+          symptomsAndFactors={this.props.symptomsAndFactors}
+          symptom={this.props.selectedSymptom}
+        />
       </>
     );
   }

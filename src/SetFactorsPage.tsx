@@ -78,6 +78,7 @@ class SetFactorsPage extends Component<Props, {}> {
                 ? "/setFactors/" + (symptomIndex + 1)
                 : "/main/entries"
             }
+            onNext={() => {}}
           />
         </div>
       </div>

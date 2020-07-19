@@ -171,6 +171,9 @@ export const FactorsAndValues = {
   ACTIVITY: ActivityValues,
   HYDRATION: WaterValues,
   EXERCISE: ExerciseValues,
+  MOOD: MoodValues,
+  FOOD: FoodValues,
+  SLEEP: SleepValues,
 };
 
 // all the entries are in FactorEntries.
