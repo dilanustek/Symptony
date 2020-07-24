@@ -11,12 +11,20 @@ import TileButton from "./TileButton";
 import NextButton from "./NextButton";
 import { Typography } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
+import { styled } from "@material-ui/core/styles";
 
 interface Props {
   toggleFactor: (symptom: Symptom, factor: Factor) => void;
   symptomsAndFactors: SymptomsAndFactors;
   symptomIndexParams: any;
 }
+
+const BoldTypography = styled(Typography)({
+  fontWeight: "bold",
+  fontSize: "24px",
+  textTransform: "lowercase",
+  display: "inline",
+});
 
 class SetFactorsPage extends Component<Props, {}> {
   getFactorTiles(symptom: Symptom) {
@@ -49,10 +57,11 @@ class SetFactorsPage extends Component<Props, {}> {
         <div className="top">
           <div>
             <div>
-              <Typography variant="h3">
-                Which of the following might be related to <b>{symptomName}</b>?
+              <Typography variant="h3" component="span">
+                Which of the following might be related to{" "}
+                <BoldTypography variant="h3">{symptomName}</BoldTypography>?{" "}
               </Typography>
-              <Typography variant="h6">
+              <Typography variant="h6" component="span">
                 ({symptomIndex + 1}/{sympKeys.length})
               </Typography>
             </div>

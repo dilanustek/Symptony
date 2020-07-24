@@ -20,7 +20,7 @@ class ViewEntriesPage extends Component<Props, {}> {
   render() {
     return (
       <>
-        <Typography variant="h5"> Symptom Entries</Typography>
+        <Typography variant="h5"> Symptom entries</Typography>
         <TitleDivider variant="fullWidth" />
         <SelectedSymptomsDropdown
           symptomsAndFactors={this.props.symptomsAndFactors}

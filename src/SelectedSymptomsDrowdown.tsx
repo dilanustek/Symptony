@@ -13,10 +13,9 @@ interface Props {
 
 const StyledFormControl = styled(FormControl)(({ theme }) => ({
   marginTop: theme.spacing(1),
-  // minWidth: 120,
 }));
 
-const StyledSelectEmpty = styled(Select)(({ theme }) => ({
+const StyledSelect = styled(Select)(({ theme }) => ({
   marginTop: theme.spacing(2),
 }));
 
@@ -33,19 +32,18 @@ class SelectedSymptomsDropdown extends Component<Props, {}> {
   render() {
     return (
       <StyledFormControl>
-        <StyledSelectEmpty
+        <StyledSelect
           value={this.props.selectedSymptom}
           onChange={(event) =>
             this.props.setSelectedSymptom(event.target.value as Symptom)
           }
-          inputProps={{ "aria-label": "Without label" }}
-          defaultValue={Symptom.PAIN}
+          inputProps={{ "aria-label": "Chose a symptom" }}
         >
           <MenuItem value="" disabled>
-            View a symptom
+            Choose a symptom to view
           </MenuItem>
           {this.getSymptomDropdownItems()}
-        </StyledSelectEmpty>
+        </StyledSelect>
       </StyledFormControl>
     );
   }

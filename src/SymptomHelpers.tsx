@@ -11,13 +11,13 @@ export enum Symptom {
 }
 
 export const SymptomNames: { [key in Symptom]: string } = {
-  REFLUX: "Acid Reflux",
-  IBS: "Irritable Bowel",
+  REFLUX: "Acid reflux",
+  IBS: "Irritable bowel",
   HEART: "Heart irregularity",
   MIGRAINE: "Migraines",
   STOMACH: "Stomach / Nausia",
   PAIN: "Pain",
-  PMS: "Premenstrual Syndrome",
+  PMS: "Premenstrual syndrome",
   VERTIGO: "Vertigo",
 };
 
@@ -32,7 +32,7 @@ export enum Factor {
 }
 
 export const FactorNames: { [key in Factor]: string } = {
-  ACTIVITY: "Current Activity",
+  ACTIVITY: "Current activity",
   EXERCISE: "Exercise",
   HYDRATION: "Hydration",
   FOOD: "Food",
