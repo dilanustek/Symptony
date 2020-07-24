@@ -108,75 +108,77 @@ class AppInner extends Component<Props, State> {
 
   render() {
     return (
-      <div className="App">
-        <Switch>
-          <Route
-            path="/setSymptoms"
-            render={() => (
-              <SetSymptomsPage
-                symptomsAndFactors={this.state.symptomsAndFactors}
-                toggleSymptom={this.toggleSymptom}
-                setSelectedSymptom={this.setSelectedSymptom}
-              />
-            )}
-          />
-          <Route
-            exact
-            path="/setFactors/:symptomIndex"
-            render={(props: RouteComponentProps) => (
-              <SetFactorsPage
-                symptomsAndFactors={this.state.symptomsAndFactors}
-                toggleFactor={this.toggleFactor}
-                symptomIndexParams={props.match.params}
-              />
-            )}
-          />
-          <Route
-            path="/main/entries"
-            render={() =>
-              !this.state.selectedSymptom ? null : (
-                <ViewEntriesPage
+      <div className="container">
+        <div className="App">
+          <Switch>
+            <Route
+              path="/setSymptoms"
+              render={() => (
+                <SetSymptomsPage
                   symptomsAndFactors={this.state.symptomsAndFactors}
-                  selectedSymptom={this.state.selectedSymptom}
+                  toggleSymptom={this.toggleSymptom}
                   setSelectedSymptom={this.setSelectedSymptom}
                 />
-              )
-            }
-          />
-          <Route
-            path="/main/analytics"
-            render={() => (
-              <AnalyticsPage
-                symptomsAndFactors={this.state.symptomsAndFactors}
-              />
-            )}
-          />
-          <Route
-            path="/main/settings"
-            render={() => (
-              <SettingsPage
-                symptomsAndFactors={this.state.symptomsAndFactors}
-              />
-            )}
-          />
-          <Route
-            path="/newEntry"
-            render={() =>
-              !this.state.selectedSymptom ? null : (
-                <NewEntry
+              )}
+            />
+            <Route
+              exact
+              path="/setFactors/:symptomIndex"
+              render={(props: RouteComponentProps) => (
+                <SetFactorsPage
                   symptomsAndFactors={this.state.symptomsAndFactors}
-                  setNewEntry={this.setNewEntry}
-                  setSelectedSymptom={this.setSelectedSymptom}
-                  selectedSymptom={this.state.selectedSymptom}
+                  toggleFactor={this.toggleFactor}
+                  symptomIndexParams={props.match.params}
                 />
-              )
-            }
+              )}
+            />
+            <Route
+              path="/main/entries"
+              render={() =>
+                !this.state.selectedSymptom ? null : (
+                  <ViewEntriesPage
+                    symptomsAndFactors={this.state.symptomsAndFactors}
+                    selectedSymptom={this.state.selectedSymptom}
+                    setSelectedSymptom={this.setSelectedSymptom}
+                  />
+                )
+              }
+            />
+            <Route
+              path="/main/analytics"
+              render={() => (
+                <AnalyticsPage
+                  symptomsAndFactors={this.state.symptomsAndFactors}
+                />
+              )}
+            />
+            <Route
+              path="/main/settings"
+              render={() => (
+                <SettingsPage
+                  symptomsAndFactors={this.state.symptomsAndFactors}
+                />
+              )}
+            />
+            <Route
+              path="/newEntry"
+              render={() =>
+                !this.state.selectedSymptom ? null : (
+                  <NewEntry
+                    symptomsAndFactors={this.state.symptomsAndFactors}
+                    setNewEntry={this.setNewEntry}
+                    setSelectedSymptom={this.setSelectedSymptom}
+                    selectedSymptom={this.state.selectedSymptom}
+                  />
+                )
+              }
+            />
+          </Switch>
+          <Route
+            path="/main"
+            render={(props) => <NavBar history={props.history} />}
           />
-        </Switch>
-        <Route
-          path="/main"
-          render={(props) => <NavBar history={props.history} />}
-        />
+        </div>
       </div>
     );
   }
