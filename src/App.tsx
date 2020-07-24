@@ -94,7 +94,7 @@ class AppInner extends Component<Props, State> {
     });
   };
 
-  setNewEntry = (newEntry: Entry) => {
+  createNewEntry = (newEntry: Entry) => {
     this.setState((state) => {
       return { allEntries: [...state.allEntries, newEntry] };
     });
@@ -166,7 +166,7 @@ class AppInner extends Component<Props, State> {
                 !this.state.selectedSymptom ? null : (
                   <NewEntry
                     symptomsAndFactors={this.state.symptomsAndFactors}
-                    setNewEntry={this.setNewEntry}
+                    createNewEntry={this.createNewEntry}
                     setSelectedSymptom={this.setSelectedSymptom}
                     selectedSymptom={this.state.selectedSymptom}
                   />

@@ -17,12 +17,12 @@ import EntrySaveButton from "./EntrySaveButton";
 import FactorEntryGridItems from "./FactorEntryGridItems";
 
 interface State {
-  timeStamp: Date;
+  timestamp: Date;
   entryFactorValues: EntryFactorValue[];
 }
 
 interface Props {
-  setNewEntry: (newEntry: Entry) => void;
+  createNewEntry: (newEntry: Entry) => void;
   symptomsAndFactors: SymptomsAndFactors;
   selectedSymptom: Symptom;
   setSelectedSymptom: (symptom: Symptom) => void;
@@ -43,36 +43,30 @@ const LeftAlignedGrid = styled(Grid)(({ theme }) => ({
 
 class NewEntry extends Component<Props, State> {
   state: State = {
-    timeStamp: new Date(Date.now()),
+    timestamp: new Date(Date.now()),
     entryFactorValues: [],
   };
 
-  setTimeStamp = (timeStamp: Date | null) => {
+  setTimestamp = (timeStamp: Date | null) => {
     if (timeStamp) {
-      this.setState({ timeStamp });
+      this.setState({ timestamp: timeStamp });
     }
   };
 
   saveEntry = () => {
     const entry: Entry = {
       symptom: this.props.selectedSymptom,
-      timeStamp: this.state.timeStamp,
+      timeStamp: this.state.timestamp,
       entryFactorValues: this.state.entryFactorValues,
     };
 
-    this.props.setNewEntry(entry);
+    this.props.createNewEntry(entry);
   };
 
   setEntryFactorValue = (factor: Factor, value: string) => {
-    const newEntryFactorValue = {
-      factor,
-      value,
-    };
-    const newEntryFactorValues = this.state.entryFactorValues;
-
     this.setState((state) => {
       return {
-        entryFactorValues: [...state.entryFactorValues, newEntryFactorValue],
+        entryFactorValues: [...state.entryFactorValues, { factor, value }],
       };
     });
   };
@@ -99,8 +93,8 @@ class NewEntry extends Component<Props, State> {
           setSelectedSymptom={this.props.setSelectedSymptom}
         />
         <DateTimePicker
-          timeStamp={this.state.timeStamp}
-          setTimeStamp={this.setTimeStamp}
+          timeStamp={this.state.timestamp}
+          setTimestamp={this.setTimestamp}
         />
 
         <FactorEntryGridItems

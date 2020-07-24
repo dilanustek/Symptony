@@ -10,7 +10,7 @@ import { styled } from "@material-ui/core/styles";
 
 interface Props {
   timeStamp: Date;
-  setTimeStamp: (timeStamp: Date | null) => void;
+  setTimestamp: (timeStamp: Date | null) => void;
 }
 
 // const WideDatePicker = styled(DatePicker)(({ theme }) => ({
@@ -31,7 +31,7 @@ export default function DateTimePicker(props: Props) {
             id="date-picker-dialog"
             format="MM/dd/yyyy"
             value={props.timeStamp}
-            onChange={props.setTimeStamp}
+            onChange={props.setTimestamp}
           />
         </Grid>
         <Grid item xs>
@@ -39,7 +39,7 @@ export default function DateTimePicker(props: Props) {
             margin="normal"
             id="time-picker"
             value={props.timeStamp}
-            onChange={props.setTimeStamp}
+            onChange={props.setTimestamp}
           />
         </Grid>
       </Grid>
