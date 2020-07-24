@@ -13,7 +13,7 @@ interface Props {
 
 const StyledFormControl = styled(FormControl)(({ theme }) => ({
   marginTop: theme.spacing(1),
-  minWidth: 120,
+  // minWidth: 120,
 }));
 
 const StyledSelectEmpty = styled(Select)(({ theme }) => ({
