@@ -13,7 +13,7 @@ import { Typography } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 
 interface Props {
-  toggleFactors: (symptom: Symptom, factor: Factor) => void;
+  toggleFactor: (symptom: Symptom, factor: Factor) => void;
   symptomsAndFactors: SymptomsAndFactors;
   symptomIndexParams: any;
 }
@@ -26,7 +26,7 @@ class SetFactorsPage extends Component<Props, {}> {
       <Grid item xs key={factor}>
         <TileButton
           key={factor}
-          onClick={() => this.props.toggleFactors(symptom, factor)}
+          onClick={() => this.props.toggleFactor(symptom, factor)}
           tileName={FactorNames[factor]}
           isSelected={
             this.props.symptomsAndFactors[symptom]?.includes(factor) === true

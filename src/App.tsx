@@ -50,93 +50,49 @@ class AppInner extends Component<Props, State> {
   }
 
   toggleSymptom = (symptom: Symptom) => {
-    const factorList = this.state.symptomsAndFactors[symptom];
+    this.setState((state) => {
+      const symptomsAndFactors = { ...state.symptomsAndFactors };
+      const factorList = symptomsAndFactors[symptom];
+      let factorListCopy: Factor[] = [];
 
-    if (!factorList) {
-      // symptom doesn't exist. Add it.
-      this.setState((state) => {
-        const symptomsAndFactors = state.symptomsAndFactors;
+      if (!factorList) {
         symptomsAndFactors[symptom] = [];
         return {
           symptomsAndFactors,
         };
-      });
-    } else {
-      // delete symptom
-      this.setState((state) => {
-        const symptomsAndFactors = state.symptomsAndFactors;
+      } else {
         delete symptomsAndFactors[symptom];
         return {
           symptomsAndFactors,
         };
-      });
-    }
-  };
-
-  toggleFactor = (symptom: Symptom, factor: Factor) => {
-    const symptomsAndFactors = this.state.symptomsAndFactors;
-    const factorList = symptomsAndFactors[symptom];
-
-    if (!factorList)
-      return Error("Symptom is null while trying to add factors.");
-
-    // if factor is there remove it, otherwise add it.
-    if (factorList.includes(factor)) {
-      this.setState((state) => {
-        const symptomsAndFactors = state.symptomsAndFactors;
-        const factorList = symptomsAndFactors[symptom];
-        const removedFactorList = factorList?.filter((fac) => fac !== factor);
-        symptomsAndFactors[symptom] = removedFactorList;
-        return {
-          symptomsAndFactors,
-        };
-      });
-    } else {
-      this.setState((state) => {
-        const symptomsAndFactors = state.symptomsAndFactors;
-        const factorList = symptomsAndFactors[symptom];
-        factorList?.push(factor);
-        return {
-          symptomsAndFactors,
-        };
-      });
-    }
-
-    this.setState({
-      symptomsAndFactors,
+      }
     });
   };
 
-  // setSymptomsAndFactors = (symptom: Symptom, factor?: Factor) => {
-  //   const symptomsAndFactors = this.state.symptomsAndFactors;
-  //   const factorList = symptomsAndFactors[symptom];
+  toggleFactor = (symptom: Symptom, factor: Factor) => {
+    this.setState((state) => {
+      const symptomsAndFactors = { ...state.symptomsAndFactors };
+      const factorList = symptomsAndFactors[symptom];
+      let factorListCopy: Factor[] = [];
+      console.log("toggle factor setstate");
+      if (factorList) {
+        factorListCopy = [...factorList];
+      }
+      if (factorListCopy.includes(factor)) {
+        const removedFactorList = factorListCopy?.filter(
+          (fac) => fac !== factor
+        );
+        symptomsAndFactors[symptom] = removedFactorList;
+      } else {
+        symptomsAndFactors[symptom] = factorListCopy;
+        factorListCopy.push(factor);
+      }
 
-  //   if (!factor) {
-  //     //toggle symptom
-  //     if (!factorList) {
-  //       // symptom doesn't exist. Add it.
-  //       symptomsAndFactors[symptom] = [];
-  //     } else {
-  //       delete symptomsAndFactors[symptom];
-  //     }
-  //   } else {
-  //     // toggle factor
-  //     if (!factorList)
-  //       return Error("Symptom is null while trying to add factors.");
-
-  //     // if factor is there remove it, otherwise add it.
-  //     if (factorList.includes(factor)) {
-  //       const removedFactorList = factorList.filter((fac) => fac !== factor);
-  //       symptomsAndFactors[symptom] = removedFactorList;
-  //     } else {
-  //       factorList.push(factor);
-  //     }
-  //   }
-
-  //   this.setState({
-  //     symptomsAndFactors,
-  //   });
-  // };
+      return {
+        symptomsAndFactors,
+      };
+    });
+  };
 
   setNewEntry = (newEntry: Entry) => {
     this.setState((state) => {
@@ -170,7 +126,7 @@ class AppInner extends Component<Props, State> {
             render={(props: RouteComponentProps) => (
               <SetFactorsPage
                 symptomsAndFactors={this.state.symptomsAndFactors}
-                toggleFactors={this.toggleFactor}
+                toggleFactor={this.toggleFactor}
                 symptomIndexParams={props.match.params}
               />
             )}
@@ -219,18 +175,7 @@ class AppInner extends Component<Props, State> {
         </Switch>
         <Route
           path="/main"
-          render={(props) => {
-            if (!this.state.selectedSymptom) {
-              this.setState((state) => {
-                const firstSymptom = Object.keys(
-                  state.symptomsAndFactors
-                )[0] as Symptom;
-
-                return { selectedSymptom: firstSymptom };
-              });
-            }
-            return <NavBar history={props.history} />;
-          }}
+          render={(props) => <NavBar history={props.history} />}
         />
       </div>
     );
