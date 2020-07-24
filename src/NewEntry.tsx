@@ -43,10 +43,10 @@ const HeaderGrid = styled(Grid)(({ theme }) => ({
   paddingRight: 0,
 }));
 
-const LeftAlignedGrid = styled(Grid)(({ theme }) => ({
+const LeftAlignedGrid = styled(Grid)({
   display: "flex",
   justifyContent: "flex-end",
-}));
+});
 
 class NewEntry extends Component<Props, State> {
   state: State = {
