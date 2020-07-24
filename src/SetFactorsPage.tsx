@@ -76,6 +76,7 @@ class SetFactorsPage extends Component<Props, {}> {
                 ? "/setFactors/" + (symptomIndex + 1)
                 : "/main/entries"
             }
+            onClick={() => {}}
           />
         </div>
       </div>

@@ -43,7 +43,15 @@ class SetSymptomsPage extends Component<Props, {}> {
         </div>
         <div className="submitBtn">
           {Object.entries(this.props.symptomsAndFactors).length === 0 ? null : (
-            <NextButton label="Next" path="/setFactors/0" />
+            <NextButton
+              label="Next"
+              path="/setFactors/0"
+              onClick={() => {
+                this.props.setSelectedSymptom(
+                  Object.keys(this.props.symptomsAndFactors)[0] as Symptom
+                );
+              }}
+            />
           )}
         </div>
       </div>

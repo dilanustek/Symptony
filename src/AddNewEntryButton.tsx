@@ -6,7 +6,7 @@ import AddIcon from "@material-ui/icons/Add";
 
 const AddButtonStyled = styled(Button)(({ theme }) => ({
   justifyContent: "start",
-  textTransform: "capitalize",
+  textTransform: "none",
   marginTop: theme.spacing(1),
   padding: theme.spacing(0),
   paddingTop: theme.spacing(1),
