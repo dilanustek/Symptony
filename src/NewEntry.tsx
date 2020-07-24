@@ -36,6 +36,13 @@ const NewEntryTitle = styled(Typography)(({ theme }) => ({
   marginTop: theme.spacing(0),
 }));
 
+const HeaderGrid = styled(Grid)(({ theme }) => ({
+  height: theme.spacing(9),
+  paddingTop: theme.spacing(3),
+  paddingLeft: 0,
+  paddingRight: 0,
+}));
+
 const LeftAlignedGrid = styled(Grid)(({ theme }) => ({
   display: "flex",
   justifyContent: "flex-end",
@@ -74,17 +81,17 @@ class NewEntry extends Component<Props, State> {
   render() {
     return (
       <>
-        <Grid container direction="row" alignItems="center">
+        <HeaderGrid container direction="row" alignItems="center">
           <Grid item xs={2}>
             <CloseButton />
           </Grid>
-          <Grid item xs={7}>
+          <Grid item xs={6}>
             <NewEntryTitle variant="h5">New Entry</NewEntryTitle>
           </Grid>
           <LeftAlignedGrid item xs>
             <EntrySaveButton saveEntry={this.saveEntry} />
           </LeftAlignedGrid>
-        </Grid>
+        </HeaderGrid>
         <TitleDivider variant="fullWidth" />
 
         <SelectedSymptomsDropdown
