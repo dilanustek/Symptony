@@ -7,7 +7,7 @@ interface Props {
 }
 
 const EntrySaveButton = (props: Props) => {
-  const EntrySaveButtonRouter = withRouter(({ history }) => (
+  return withRouter(({ history }) => (
     <Button
       variant="contained"
       color="primary"
@@ -20,8 +20,6 @@ const EntrySaveButton = (props: Props) => {
       Save
     </Button>
   ));
-
-  return <EntrySaveButtonRouter />;
 };
 
 export default EntrySaveButton;

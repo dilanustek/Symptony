@@ -9,7 +9,7 @@ interface Props {
 }
 
 const NextButton = (props: Props) => {
-  const RouterButton = withRouter(({ history }) => (
+  return withRouter(({ history }) => (
     <Button
       size="large"
       variant="contained"
@@ -22,8 +22,6 @@ const NextButton = (props: Props) => {
       {props.label}
     </Button>
   ));
-
-  return <RouterButton />;
 };
 
 export default NextButton;
