@@ -70,11 +70,17 @@ class NewEntry extends Component<Props, State> {
     this.props.createNewEntry(entry);
   };
 
-  setEntryFactorValue = (factor: Factor, value: string) => {
+  toggleEntryFactorValue = (factor: Factor, value: string) => {
     this.setState((state) => {
-      return {
-        entryFactorValues: [...state.entryFactorValues, { factor, value }],
-      };
+      const oldFactorValues = [...state.entryFactorValues];
+      const entryFactorValues = oldFactorValues.filter(
+        (fv) => !(fv.factor === factor && fv.value === value)
+      );
+
+      if (entryFactorValues.length === oldFactorValues.length) {
+        entryFactorValues.push({ factor, value });
+      }
+      return { entryFactorValues };
     });
   };
 
@@ -108,7 +114,7 @@ class NewEntry extends Component<Props, State> {
           symptomsAndFactors={this.props.symptomsAndFactors}
           symptom={this.props.selectedSymptom}
           entryFactorValues={this.state.entryFactorValues}
-          setEntryFactorValue={this.setEntryFactorValue}
+          toggleEntryFactorValue={this.toggleEntryFactorValue}
         />
       </>
     );

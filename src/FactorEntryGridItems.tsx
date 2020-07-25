@@ -8,13 +8,13 @@ import {
   EntryFactorValue,
 } from "./SymptomHelpers";
 import { Typography } from "@material-ui/core";
-import TileButton from "./TileButton";
+import SmallTileButton from "./SmallTileButton";
 
 interface Props {
   symptomsAndFactors: SymptomsAndFactors;
   symptom: Symptom;
   entryFactorValues: EntryFactorValue[];
-  setEntryFactorValue: (factor: Factor, value: string) => void;
+  toggleEntryFactorValue: (factor: Factor, value: string) => void;
 }
 
 function isEntryFactorValueSelected(
@@ -38,14 +38,14 @@ function getFactorOptions(factor: Factor, props: Props) {
 
   return values.map((value) => (
     <Grid item xs key={factor + value}>
-      <TileButton
+      <SmallTileButton
         tileName={value}
         isSelected={isEntryFactorValueSelected(
           props.entryFactorValues,
           factor,
           value
         )}
-        onClick={() => props.setEntryFactorValue(factor, value)}
+        onClick={() => props.toggleEntryFactorValue(factor, value)}
       />
     </Grid>
   ));
