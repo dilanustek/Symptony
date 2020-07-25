@@ -6,17 +6,21 @@ import TrendingUp from "@material-ui/icons/TrendingUp";
 import Settings from "@material-ui/icons/Settings";
 import "./navBar.css";
 import { History } from "history";
+import { styled } from "@material-ui/core/styles";
 
 interface Props {
   history: History;
 }
+const BottomNavWBorderTop = styled(BottomNavigation)(({ theme }) => ({
+  borderTop: "1px solid lightgrey",
+}));
 
 export default function NavBar(props: Props) {
   const [value, setValue] = React.useState(0);
   const pathsArr = ["/main/entries", "/main/analytics", "/main/settings"];
 
   return (
-    <BottomNavigation
+    <BottomNavWBorderTop
       value={value}
       onChange={(event, newValue) => {
         setValue(newValue);
@@ -28,6 +32,6 @@ export default function NavBar(props: Props) {
       <BottomNavigationAction label="Entries" icon={<List />} />
       <BottomNavigationAction label="Insights" icon={<TrendingUp />} />
       <BottomNavigationAction label="Settings" icon={<Settings />} />
-    </BottomNavigation>
+    </BottomNavWBorderTop>
   );
 }
