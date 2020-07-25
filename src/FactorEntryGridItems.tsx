@@ -33,11 +33,7 @@ function isEntryFactorValueSelected(
   return false;
 }
 
-function getFactorOptions(
-  factor: Factor,
-  entryFactorValues: EntryFactorValue[],
-  setEntryFactorValue: (factor: Factor, value: string) => void
-) {
+function getFactorOptions(factor: Factor, props: Props) {
   const values = FactorsAndValues[factor];
 
   return values.map((value) => (
@@ -45,23 +41,18 @@ function getFactorOptions(
       <TileButton
         tileName={value}
         isSelected={isEntryFactorValueSelected(
-          entryFactorValues,
+          props.entryFactorValues,
           factor,
           value
         )}
-        onClick={() => setEntryFactorValue(factor, value)}
+        onClick={() => props.setEntryFactorValue(factor, value)}
       />
     </Grid>
   ));
 }
 
-function getFactorsAndOptions(
-  symptom: Symptom,
-  symptomsAndFactors: SymptomsAndFactors,
-  entryFactorValues: EntryFactorValue[],
-  setEntryFactorValue: (factor: Factor, value: string) => void
-) {
-  const factors = symptomsAndFactors[symptom];
+function getFactorsAndOptions(props: Props) {
+  const factors = props.symptomsAndFactors[props.symptom];
   if (!factors) return null;
 
   return factors.map((factor) => (
@@ -70,23 +61,14 @@ function getFactorsAndOptions(
         <Typography variant="h6">{factor}</Typography>
       </Grid>
       <Grid container justify="center">
-        {getFactorOptions(factor, entryFactorValues, setEntryFactorValue)}
+        {getFactorOptions(factor, props)}
       </Grid>
     </Grid>
   ));
 }
 
 const FactorEntryGridItems = (props: Props) => {
-  return (
-    <Grid container>
-      {getFactorsAndOptions(
-        props.symptom,
-        props.symptomsAndFactors,
-        props.entryFactorValues,
-        props.setEntryFactorValue
-      )}
-    </Grid>
-  );
+  return <Grid container>{getFactorsAndOptions(props)}</Grid>;
 };
 
 export default FactorEntryGridItems;
