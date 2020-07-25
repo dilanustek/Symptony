@@ -4,11 +4,12 @@ import SelectedSymptomsDropdown from "./SelectedSymptomsDrowdown";
 import AddNewEntryButton from "./AddNewEntryButton";
 import LargeHeader from "./LargeHeader";
 import List from "@material-ui/core/List";
-import ListItem, { ListItemProps } from "@material-ui/core/ListItem";
+import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import DraftsIcon from "@material-ui/icons/Drafts";
 import { ListItemSecondaryAction } from "@material-ui/core";
+import LabelIcon from "@material-ui/icons/Label";
+import { styled } from "@material-ui/core/styles";
 
 interface Props {
   symptomsAndFactors: SymptomsAndFactors;
@@ -16,6 +17,16 @@ interface Props {
   allEntries: Entry[];
   setSelectedSymptom: (selectedSymptom: Symptom) => void;
 }
+
+const AlignedListItemIcon = styled(ListItemIcon)({
+  display: "flex",
+  alignItems: "center",
+  minWidth: "0",
+});
+
+const NoPaddingListItem = styled(ListItem)({
+  padding: "0",
+});
 
 class ViewEntriesPage extends Component<Props, {}> {
   getSymptomEntries() {
@@ -67,14 +78,15 @@ class ViewEntriesPage extends Component<Props, {}> {
     const entries: Entry[] = this.getSymptomEntries();
 
     return entries.map((entry) => (
-      <ListItem button key={Number(entry.timestamp)}>
+      <NoPaddingListItem button key={Number(entry.timestamp)}>
         <ListItemText primary={this.getReadableDate(entry.timestamp)} />
         <ListItemSecondaryAction>
-          <ListItemIcon>
-            <DraftsIcon />
-          </ListItemIcon>
+          <AlignedListItemIcon>
+            {entry.entryFactorValues.length}
+            <LabelIcon color="primary" />
+          </AlignedListItemIcon>
         </ListItemSecondaryAction>
-      </ListItem>
+      </NoPaddingListItem>
     ));
   }
 
