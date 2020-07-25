@@ -6,7 +6,6 @@ import {
   TimePicker,
   DatePicker,
 } from "@material-ui/pickers";
-import { styled } from "@material-ui/core/styles";
 
 interface Props {
   timeStamp: Date;
