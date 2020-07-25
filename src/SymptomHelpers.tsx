@@ -79,6 +79,6 @@ export type EntryFactorValue = {
 // Each entry has  a symptom. timestamp,  and a list of factor-value pairs(EntryFactorValue)
 export type Entry = {
   symptom: Symptom;
-  timeStamp: Date;
+  timestamp: Date;
   entryFactorValues: EntryFactorValue[];
 };

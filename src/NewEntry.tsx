@@ -63,7 +63,7 @@ class NewEntry extends Component<Props, State> {
   saveEntry = () => {
     const entry: Entry = {
       symptom: this.props.selectedSymptom,
-      timeStamp: this.state.timestamp,
+      timestamp: this.state.timestamp,
       entryFactorValues: this.state.entryFactorValues,
     };
 
