@@ -31,7 +31,7 @@ class SetFactorsPage extends Component<Props, {}> {
     const factors = Object.values(Factor);
 
     return factors.map((factor) => (
-      <Grid item xs key={factor}>
+      <Grid item xs={6} key={factor}>
         <TileButton
           key={factor}
           onClick={() => this.props.toggleFactor(symptom, factor)}
@@ -81,7 +81,7 @@ class SetFactorsPage extends Component<Props, {}> {
           <NextButton
             label="Get Started"
             path={
-              sympKeys.length > symptomIndex + 1
+              symptomIndex + 1 < sympKeys.length
                 ? "/setFactors/" + (symptomIndex + 1)
                 : "/main/entries"
             }

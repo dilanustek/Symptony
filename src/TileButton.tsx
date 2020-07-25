@@ -12,7 +12,6 @@ interface Props {
 
 const TileButton = (props: Props) => {
   const TileBtn = styled(Button)({
-    width: "130px",
     height: "64px",
     textTransform: "none",
     background: props.isSelected ? purple[200] : purple[100],
@@ -20,7 +19,12 @@ const TileButton = (props: Props) => {
 
   return (
     <>
-      <TileBtn variant="contained" color="secondary" onClick={props.onClick}>
+      <TileBtn
+        variant="contained"
+        color="secondary"
+        fullWidth={true}
+        onClick={props.onClick}
+      >
         <Typography>{props.tileName}</Typography>
       </TileBtn>
     </>

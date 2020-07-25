@@ -38,7 +38,7 @@ function getFactorOptions(factor: Factor, props: Props) {
   const values = FactorsAndValues[factor];
 
   return values.map((value) => (
-    <Grid item xs key={factor + value}>
+    <Grid item xs={6} key={factor + value}>
       <SmallTileButton
         tileName={value}
         isSelected={isEntryFactorValueSelected(

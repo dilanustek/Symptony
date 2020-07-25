@@ -17,7 +17,7 @@ class SetSymptomsPage extends Component<Props, {}> {
     const symptoms = Object.values(Symptom);
 
     return symptoms.map((symptom) => (
-      <Grid item xs key={symptom}>
+      <Grid item xs={6} key={symptom}>
         <TileButton
           key={symptom}
           onClick={() => this.props.toggleSymptom(symptom)}
