@@ -11,12 +11,12 @@ interface Props {
 }
 
 const SmallTileButton = (props: Props) => {
-  const TileBtn = styled(Button)({
-    width: "130px",
-    height: "64px",
+  const TileBtn = styled(Button)(({ theme }) => ({
+    width: theme.spacing(18),
+    height: theme.spacing(4),
     textTransform: "none",
     background: props.isSelected ? grey[300] : grey[100],
-  });
+  }));
 
   return (
     <>

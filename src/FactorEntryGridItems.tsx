@@ -9,6 +9,7 @@ import {
 } from "./SymptomHelpers";
 import { Typography } from "@material-ui/core";
 import SmallTileButton from "./SmallTileButton";
+import { styled } from "@material-ui/core/styles";
 
 interface Props {
   symptomsAndFactors: SymptomsAndFactors;
@@ -51,19 +52,27 @@ function getFactorOptions(factor: Factor, props: Props) {
   ));
 }
 
+const GridPadding = styled(Grid)(({ theme }) => ({
+  paddingTop: theme.spacing(3),
+}));
+
+const TypographyPadding = styled(Typography)(({ theme }) => ({
+  paddingBottom: theme.spacing(2),
+}));
+
 function getFactorsAndOptions(props: Props) {
   const factors = props.symptomsAndFactors[props.symptom];
   if (!factors) return null;
 
   return factors.map((factor) => (
-    <Grid container key={factor}>
+    <GridPadding container key={factor}>
       <Grid item xs={12}>
-        <Typography variant="h6">{factor}</Typography>
+        <TypographyPadding variant="h6">{factor}</TypographyPadding>
       </Grid>
-      <Grid container justify="center">
+      <Grid container justify="center" spacing={2}>
         {getFactorOptions(factor, props)}
       </Grid>
-    </Grid>
+    </GridPadding>
   ));
 }
 
