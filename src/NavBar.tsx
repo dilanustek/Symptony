@@ -13,6 +13,10 @@ interface Props {
 }
 const BottomNavWBorderTop = styled(BottomNavigation)(({ theme }) => ({
   borderTop: "1px solid lightgrey",
+  bottom: "0",
+  left: "0",
+  position: "fixed",
+  width: "100%",
 }));
 
 export default function NavBar(props: Props) {
@@ -27,7 +31,6 @@ export default function NavBar(props: Props) {
         props.history.push(pathsArr[newValue]);
       }}
       showLabels
-      className="navBar"
     >
       <BottomNavigationAction label="Entries" icon={<List />} />
       <BottomNavigationAction label="Insights" icon={<TrendingUp />} />
