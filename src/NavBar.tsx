@@ -4,7 +4,6 @@ import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
 import List from "@material-ui/icons/List";
 import TrendingUp from "@material-ui/icons/TrendingUp";
 import Settings from "@material-ui/icons/Settings";
-import "./navBar.css";
 import { History } from "history";
 import { styled } from "@material-ui/core/styles";
 
