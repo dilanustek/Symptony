@@ -5,12 +5,17 @@ import TileButton from "./TileButton";
 import NextButton from "./NextButton";
 import { Typography } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
+import { styled } from "@material-ui/core/styles";
 
 interface Props {
   toggleSymptom: (symptom: Symptom) => void;
   symptomsAndFactors: SymptomsAndFactors;
   setSelectedSymptom: (syptom: Symptom) => void;
 }
+
+const StyledTypography = styled(Typography)(({ theme }) => ({
+  marginBottom: theme.spacing(4),
+}));
 
 class SetSymptomsPage extends Component<Props, {}> {
   getSymptomTiles() {
@@ -32,9 +37,9 @@ class SetSymptomsPage extends Component<Props, {}> {
     return (
       <div className="onboardContainer">
         <div className="top">
-          <Typography variant="h3">
+          <StyledTypography variant="h3">
             Which symptoms do you want to track?
-          </Typography>
+          </StyledTypography>
           <div className="sympTiles">
             <Grid container spacing={2}>
               {this.getSymptomTiles()}

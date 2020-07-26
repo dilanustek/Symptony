@@ -19,6 +19,10 @@ interface Props {
   symptomIndexParams: any;
 }
 
+const StyledTypography = styled(Typography)(({ theme }) => ({
+  marginBottom: theme.spacing(4),
+}));
+
 const BoldTypography = styled(Typography)({
   fontWeight: "bold",
   fontSize: "24px",
@@ -56,7 +60,7 @@ class SetFactorsPage extends Component<Props, {}> {
       <div className="onboardContainer">
         <div className="top">
           <div>
-            <div>
+            <div className="topTitle">
               <Typography variant="h3" component="span">
                 Which of the following might be related to{" "}
                 <BoldTypography variant="h3">{symptomName}</BoldTypography>?{" "}
@@ -65,11 +69,13 @@ class SetFactorsPage extends Component<Props, {}> {
                 ({symptomIndex + 1}/{sympKeys.length})
               </Typography>
             </div>
-            <Typography variant="h6">
-              When you experience any {symptomName}, we will help you record
-              what was happening. Then the app analyze this data to show you
-              correlations.
-            </Typography>
+            <div className="bottomTitle">
+              <Typography variant="h6">
+                When you experience any {symptomName}, we will help you record
+                what was happening. Then the app analyze this data to show you
+                correlations.
+              </Typography>
+            </div>
           </div>
           <div className="facTiles">
             <Grid container spacing={2}>
