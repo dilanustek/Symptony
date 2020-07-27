@@ -72,15 +72,15 @@ class NewEntry extends Component<Props, State> {
 
   toggleEntryFactorValue = (factor: Factor, value: string) => {
     this.setState((state) => {
-      const oldFactorValues = [...state.entryFactorValues];
-      const entryFactorValues = oldFactorValues.filter(
+      const oldFactorValues = this.state.entryFactorValues;
+      const otherEntryFactorValues = oldFactorValues.filter(
         (fv) => !(fv.factor === factor && fv.value === value)
       );
 
-      if (entryFactorValues.length === oldFactorValues.length) {
-        entryFactorValues.push({ factor, value });
+      if (otherEntryFactorValues.length === oldFactorValues.length) {
+        otherEntryFactorValues.push({ factor, value });
       }
-      return { entryFactorValues };
+      return { entryFactorValues: otherEntryFactorValues };
     });
   };
 

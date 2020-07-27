@@ -16,6 +16,7 @@ interface State {
   symptomsAndFactors: SymptomsAndFactors;
   allEntries: Entry[];
   selectedSymptom: Symptom | null;
+  isOnboarding: boolean;
 }
 
 interface Props {
@@ -33,12 +34,14 @@ class AppInner extends Component<Props, State> {
   //   symptomsAndFactors: this.symptomsAndFactors,
   //   allEntries: [],
   //   selectedSymptom: Object.keys(this.symptomsAndFactors)[0] as Symptom,
+  //   isOnboarding: false,
   // };
 
   state: State = {
     symptomsAndFactors: {},
     allEntries: [],
     selectedSymptom: null,
+    isOnboarding: true,
   };
 
   componentDidMount() {
@@ -48,6 +51,10 @@ class AppInner extends Component<Props, State> {
     //  for development
     // this.props.history.push("/main/entries/");
   }
+
+  setOnboardingFalse = () => {
+    this.setState({ isOnboarding: false });
+  };
 
   toggleSymptom = (symptom: Symptom) => {
     this.setState((state) => {
@@ -72,7 +79,6 @@ class AppInner extends Component<Props, State> {
       const symptomsAndFactors = { ...state.symptomsAndFactors };
       const factorList = symptomsAndFactors[symptom];
       let factorListCopy: Factor[] = [];
-      console.log("toggle factor setstate");
       if (factorList) {
         factorListCopy = [...factorList];
       }
@@ -127,6 +133,8 @@ class AppInner extends Component<Props, State> {
                   symptomsAndFactors={this.state.symptomsAndFactors}
                   toggleFactor={this.toggleFactor}
                   symptomIndexParams={props.match.params}
+                  isOnboarding={this.state.isOnboarding}
+                  setOnboardingFalse={this.setOnboardingFalse}
                 />
               )}
             />

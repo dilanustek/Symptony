@@ -17,11 +17,9 @@ interface Props {
   toggleFactor: (symptom: Symptom, factor: Factor) => void;
   symptomsAndFactors: SymptomsAndFactors;
   symptomIndexParams: any;
+  isOnboarding: boolean;
+  setOnboardingFalse: () => void;
 }
-
-const StyledTypography = styled(Typography)(({ theme }) => ({
-  marginBottom: theme.spacing(4),
-}));
 
 const BoldTypography = styled(Typography)({
   fontWeight: "bold",
@@ -46,6 +44,13 @@ class SetFactorsPage extends Component<Props, {}> {
         />
       </Grid>
     ));
+  }
+
+  getNextPath(symptomIndex: number, sympKeys: string[]) {
+    if (symptomIndex + 1 < sympKeys.length)
+      return "/setFactors/" + (symptomIndex + 1);
+    else if (!this.props.isOnboarding) return "/main/settings";
+    else return "/main/entries";
   }
 
   render() {
@@ -86,12 +91,11 @@ class SetFactorsPage extends Component<Props, {}> {
         <div className="submitBtn">
           <NextButton
             label="Get Started"
-            path={
-              symptomIndex + 1 < sympKeys.length
-                ? "/setFactors/" + (symptomIndex + 1)
-                : "/main/entries"
-            }
-            onClick={() => {}}
+            path={this.getNextPath(symptomIndex, sympKeys)}
+            onClick={() => {
+              if (symptomIndex + 1 === sympKeys.length)
+                this.props.setOnboardingFalse();
+            }}
           />
         </div>
       </div>
