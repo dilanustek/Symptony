@@ -10,7 +10,7 @@ import { Typography, ListItem, List, ListItemText } from "@material-ui/core";
 import { styled } from "@material-ui/core/styles";
 
 interface Props {
-  allEntries: Entry[];
+  symptomEntries: Entry[];
   selectedSymptom: Symptom;
 }
 

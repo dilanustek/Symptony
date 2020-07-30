@@ -5,6 +5,8 @@ import Paper from "@material-ui/core/Paper";
 import SelectedSymptomsDropdown from "./SelectedSymptomsDrowdown";
 import CommonFactors from "./CommonFactors";
 import { styled } from "@material-ui/core/styles";
+import SymptomTimePlot from "./SymptomTimePlot";
+import TimeOfDayChart from "./TimeOfDayChart";
 
 interface Props {
   symptomsAndFactors: SymptomsAndFactors;
@@ -31,12 +33,24 @@ class AnalyticsPage extends Component<Props, {}> {
         {/* Given a symptom, what are the most common occurrances? */}
         <MyPaper elevation={1}>
           <CommonFactors
-            allEntries={this.props.allEntries}
+            symptomEntries={this.props.allEntries}
             selectedSymptom={this.props.selectedSymptom}
           />
         </MyPaper>
         {/* Plot: frequency of symptom over time */}
+        <MyPaper elevation={1}>
+          <SymptomTimePlot
+            symptomEntries={this.props.allEntries}
+            selectedSymptom={this.props.selectedSymptom}
+          />
+        </MyPaper>
         {/* Histogram: which time of day does symptom happen? */}
+        <MyPaper elevation={1}>
+          <TimeOfDayChart
+            symptomEntries={this.props.allEntries}
+            selectedSymptom={this.props.selectedSymptom}
+          />
+        </MyPaper>
       </>
     );
   }
