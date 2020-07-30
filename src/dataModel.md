@@ -56,7 +56,7 @@ Occurences with factor5-value2: YYY
 Occurences with factor5-value3: YYY
 
 - Plot frequency of symptoms per time period
-  scatterplot one dot per symptom vs time period (day, week, month)
+  scatterplot one dot per symptom vs time period (week, month, year)
   x axis: date
   y axis: time of date (hour)
 

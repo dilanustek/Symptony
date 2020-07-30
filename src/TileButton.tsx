@@ -14,7 +14,7 @@ const TileButton = (props: Props) => {
   const TileBtn = styled(Button)({
     height: "64px",
     textTransform: "none",
-    background: props.isSelected ? purple[200] : purple[100],
+    background: props.isSelected ? purple[300] : purple[100],
   });
 
   return (

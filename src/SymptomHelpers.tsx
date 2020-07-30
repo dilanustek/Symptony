@@ -1,3 +1,6 @@
+// Constants
+// const MAX_FACTORVALUES = 5;
+
 // SYMPTOMS
 export enum Symptom {
   REFLUX = "REFLUX",
@@ -82,3 +85,64 @@ export type Entry = {
   timestamp: Date;
   entryFactorValues: EntryFactorValue[];
 };
+
+// // All tracked factors and values are tracked with an ID
+export const idFactorValueMap: Map<string, EntryFactorValue> = new Map();
+// export const factorValueIdMap: Map<EntryFactorValue, string> = new Map();
+
+export function fillFactorValueDictionary() {
+  let id = 0;
+  for (let factor of Object.values(Factor)) {
+    for (let value of FactorsAndValues[factor]) {
+      idFactorValueMap.set(id.toString(), { factor, value });
+      // factorValueIdMap.set({ factor, value }, id.toString());
+      id++;
+    }
+  }
+}
+
+// // Commonly used functions
+// export function getEntriesBySymptom(symptom: Symptom, allEntries: Entry[]) {
+//   return allEntries.filter((entry) => entry.symptom === symptom);
+// }
+
+// function countFactorValues(entries: Entry[]) {
+//   var factorValueCounts: Map<string, number> = new Map();
+
+//   for (let entry of entries) {
+//     for (let fv of entry.entryFactorValues) {
+//       const id = factorValueIdMap.get(fv);
+//       if (!id) return null;
+//       const incrementCount = (factorValueCounts.get(id) || 0) + 1;
+//       factorValueCounts.set(id, incrementCount);
+//     }
+//   }
+
+//   return factorValueCounts;
+// }
+
+// export function getCommonFactorValuesBySymptom(
+//   symptom: Symptom,
+//   allEntries: Entry[]
+// ) {
+//   const factorValueCounts = countFactorValues(
+//     getEntriesBySymptom(symptom, allEntries)
+//   );
+
+//   // console.log("factor Value counts " + factorValueCounts?.keys.length);
+
+//   if (!factorValueCounts) return null;
+
+//   const sorted = [...factorValueCounts.entries()].sort((a, b) => a[1] - b[1]);
+//   const top = sorted.slice(0, MAX_FACTORVALUES);
+
+//   const result = top.map(([id, count]) => {
+//     const fv = idFactorValueMap.get(id);
+//     if (!fv) return null;
+//     return { fv, count };
+//   });
+//   return result;
+//   // get the top 5 counts' indeces.
+//   // for each index, get the fv in factorValuePairs[index]
+//   // return those 5 fvs.
+// }

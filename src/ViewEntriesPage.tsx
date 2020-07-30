@@ -55,7 +55,7 @@ class ViewEntriesPage extends Component<Props, {}> {
     const monthNum = date.getMonth();
 
     const militaryHour = date.getHours();
-    const standardHour = militaryHour - 12;
+    const standardHour = militaryHour > 12 ? militaryHour - 12 : militaryHour;
 
     const minutes = date.getMinutes();
     const fullMinutes = (minutes < 10 ? "0" : "") + minutes;
