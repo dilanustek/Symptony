@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Symptom, Entry, SymptomNames } from "./SymptomHelpers";
 import { Typography } from "@material-ui/core";
 import { styled } from "@material-ui/core/styles";
-import { Scatter } from "react-chartjs-2";
+import { Bar } from "react-chartjs-2";
 import { purple } from "@material-ui/core/colors/";
 
 interface Props {
@@ -16,34 +16,20 @@ const PaperTitles = styled(Typography)(({ theme }) => ({
 }));
 
 class TimeOfDayChart extends Component<Props, {}> {
-  getScatterData() {
+  getBarData() {
     const data = {
       datasets: [
         {
-          backgroundColor: purple[400],
-          pointRadius: 10,
-          data: [
-            {
-              x: 1,
-              y: 9,
-            },
-            {
-              x: 1,
-              y: 10,
-            },
-            {
-              x: 1,
-              y: 11,
-            },
-            {
-              x: 4,
-              y: 10,
-            },
-            {
-              x: 10,
-              y: 11,
-            },
-          ],
+          label: "Morning",
+          data: 14,
+        },
+        {
+          label: "Afternoon",
+          data: 2,
+        },
+        {
+          label: "Evening/Night",
+          data: 0,
         },
       ],
     };
@@ -52,34 +38,12 @@ class TimeOfDayChart extends Component<Props, {}> {
   }
 
   render() {
-    const options = {
-      legend: {
-        display: false,
-      },
-      scales: {
-        xAxes: [
-          {
-            gridLines: {
-              display: false,
-            },
-            type: "linear",
-            position: "bottom",
-          },
-        ],
-        yAxes: [
-          {
-            gridLines: {
-              display: false,
-            },
-          },
-        ],
-      },
-    };
+    const options = {};
 
     return (
       <>
         <PaperTitles>When does it happen most in a day?</PaperTitles>
-        <Scatter data={this.getScatterData()} options={options} />
+        <Bar data={this.getBarData()} options={options} />
       </>
     );
   }
