@@ -14,7 +14,7 @@ const BottomNavWBorderTop = styled(BottomNavigation)(({ theme }) => ({
   borderTop: "1px solid lightgrey",
   bottom: "0",
   left: "0",
-  position: "fixed",
+  // position: "absolute",
   width: "100%",
 }));
 

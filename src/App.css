@@ -1,13 +1,26 @@
 .container {
   height: 100%;
+  box-sizing: border-box;
+  position: relative;
+  background: white;
+  width: 360px;
+  height: 620px;
+}
+
+.App {
+  height: 100%;
+  display: flex;
+  flex-flow: column;
+}
+
+.content {
+  height: 100%;
   padding-top: 28px;
   padding-left: 28px;
   padding-right: 28px;
   padding-bottom: 16px;
-}
-
-.App {
+  overflow: auto;
   display: flex;
-  flex-flow: column;
-  height: 100%;
+  flex-direction: column;
+  flex: 1;
 }
