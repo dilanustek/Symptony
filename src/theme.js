@@ -16,10 +16,7 @@ const theme = createMuiTheme({
 });
 
 theme.typography.h3 = {
-  fontSize: "28px",
-  "@media (min-width:600px)": {
-    fontSize: "26px",
-  },
+  fontSize: "26px",
   fontWeight: "300",
 };
 
@@ -32,7 +29,7 @@ theme.typography.h5 = {
 
 theme.typography.h6 = {
   fontWeight: "400",
-  fontSize: "16px",
+  fontSize: "14px",
   color: "#999999",
 };
 

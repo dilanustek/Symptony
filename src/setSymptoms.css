@@ -7,7 +7,7 @@
   position: relative;
 }
 .top {
-  margin: auto;
+  margin-bottom: 32px;
 }
 
 .submitBtn {

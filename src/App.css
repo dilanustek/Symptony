@@ -15,10 +15,7 @@
 
 .content {
   height: 100%;
-  padding-top: 28px;
-  padding-left: 28px;
-  padding-right: 28px;
-  padding-bottom: 16px;
+  padding: 24px;
   overflow: auto;
   display: flex;
   flex-direction: column;
