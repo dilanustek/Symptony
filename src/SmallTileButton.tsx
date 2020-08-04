@@ -1,7 +1,7 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
 import { styled } from "@material-ui/core/styles";
-import { purple } from "@material-ui/core/colors/";
+import { grey } from "@material-ui/core/colors/";
 import { Typography } from "@material-ui/core";
 
 interface Props {
@@ -10,25 +10,21 @@ interface Props {
   isSelected: boolean;
 }
 
-const TileButton = (props: Props) => {
-  const TileBtn = styled(Button)({
-    height: "64px",
+const SmallTileButton = (props: Props) => {
+  const TileBtn = styled(Button)(({ theme }) => ({
+    width: theme.spacing(18),
+    height: theme.spacing(4),
     textTransform: "none",
-    background: props.isSelected ? purple[300] : purple[100],
-  });
+    background: props.isSelected ? grey[300] : grey[100],
+  }));
 
   return (
     <>
-      <TileBtn
-        variant="contained"
-        color="secondary"
-        fullWidth={true}
-        onClick={props.onClick}
-      >
+      <TileBtn variant="contained" color="secondary" onClick={props.onClick}>
         <Typography>{props.tileName}</Typography>
       </TileBtn>
     </>
   );
 };
 
-export default TileButton;
+export default SmallTileButton;
