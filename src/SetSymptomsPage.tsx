@@ -5,31 +5,27 @@ import TileButton from "./TileButton";
 import NextButton from "./NextButton";
 import { Typography } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
+import { styled } from "@material-ui/core/styles";
 
 interface Props {
-  setSymptomsAndFactors: (symptomsAndFactors: SymptomsAndFactors) => void;
+  toggleSymptom: (symptom: Symptom) => void;
   symptomsAndFactors: SymptomsAndFactors;
+  setSelectedSymptom: (syptom: Symptom) => void;
 }
 
-class SetSymptomsPage extends Component<Props, {}> {
-  toggleSymptom = (newSymptom: Symptom) => {
-    const symptomsAndFactors = this.props.symptomsAndFactors;
-    if (!symptomsAndFactors[newSymptom]) {
-      symptomsAndFactors[newSymptom] = [];
-    } else {
-      delete symptomsAndFactors[newSymptom];
-    }
-    this.props.setSymptomsAndFactors(symptomsAndFactors);
-  };
+const StyledTypography = styled(Typography)(({ theme }) => ({
+  marginBottom: theme.spacing(4),
+}));
 
+class SetSymptomsPage extends Component<Props, {}> {
   getSymptomTiles() {
     const symptoms = Object.values(Symptom);
 
     return symptoms.map((symptom) => (
-      <Grid item xs key={symptom}>
+      <Grid item xs={6} key={symptom}>
         <TileButton
           key={symptom}
-          toggleSymptom={() => this.toggleSymptom(symptom)}
+          onClick={() => this.props.toggleSymptom(symptom)}
           tileName={SymptomNames[symptom]}
           isSelected={this.props.symptomsAndFactors[symptom] !== undefined}
         />
@@ -38,26 +34,31 @@ class SetSymptomsPage extends Component<Props, {}> {
   }
 
   render() {
-    console.log(this.props.symptomsAndFactors);
     return (
       <div className="onboardContainer">
         <div className="top">
-          <Typography variant="h3">
+          <StyledTypography variant="h3">
             Which symptoms do you want to track?
-          </Typography>
+          </StyledTypography>
           <div className="sympTiles">
             <Grid container spacing={2}>
               {this.getSymptomTiles()}
             </Grid>
           </div>
         </div>
-        {Object.entries(this.props.symptomsAndFactors).length === 0 ? (
-          <div className="submitBtn"></div>
-        ) : (
-          <div className="submitBtn">
-            <NextButton label="Next" path="/setFactors/0" />
-          </div>
-        )}
+        <div className="submitBtn">
+          {Object.entries(this.props.symptomsAndFactors).length === 0 ? null : (
+            <NextButton
+              label="Next"
+              path="/setFactors/0"
+              onClick={() => {
+                this.props.setSelectedSymptom(
+                  Object.keys(this.props.symptomsAndFactors)[0] as Symptom
+                );
+              }}
+            />
+          )}
+        </div>
       </div>
     );
   }

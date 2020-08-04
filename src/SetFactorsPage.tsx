@@ -11,42 +11,32 @@ import TileButton from "./TileButton";
 import NextButton from "./NextButton";
 import { Typography } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
+import { styled } from "@material-ui/core/styles";
 
 interface Props {
-  setSymptomsAndFactors: (symptomsAndFactors: SymptomsAndFactors) => void;
+  toggleFactor: (symptom: Symptom, factor: Factor) => void;
   symptomsAndFactors: SymptomsAndFactors;
-  match: any;
+  symptomIndexParams: any;
+  isOnboarding: boolean;
+  setOnboardingFalse: () => void;
 }
 
+const BoldTypography = styled(Typography)({
+  fontWeight: "bold",
+  fontSize: "24px",
+  textTransform: "lowercase",
+  display: "inline",
+});
+
 class SetFactorsPage extends Component<Props, {}> {
-  toggleFactor = (currentFactor: Factor, symptom: Symptom) => {
-    const symptomsAndFactors = this.props.symptomsAndFactors;
-    const factorList = symptomsAndFactors[symptom];
-
-    if (!factorList)
-      return Error("Symptom is null while trying to add factors.");
-
-    // if factor is there remove it, otherwise add it.
-    if (factorList.includes(currentFactor)) {
-      const removedFactorList = factorList.filter(
-        (factor) => factor !== currentFactor
-      );
-      symptomsAndFactors[symptom] = removedFactorList;
-    } else {
-      factorList.push(currentFactor);
-    }
-
-    this.props.setSymptomsAndFactors(symptomsAndFactors);
-  };
-
   getFactorTiles(symptom: Symptom) {
     const factors = Object.values(Factor);
 
     return factors.map((factor) => (
-      <Grid item xs key={factor}>
+      <Grid item xs={6} key={factor}>
         <TileButton
           key={factor}
-          toggleSymptom={() => this.toggleFactor(factor, symptom)}
+          onClick={() => this.props.toggleFactor(symptom, factor)}
           tileName={FactorNames[factor]}
           isSelected={
             this.props.symptomsAndFactors[symptom]?.includes(factor) === true
@@ -56,31 +46,41 @@ class SetFactorsPage extends Component<Props, {}> {
     ));
   }
 
+  getNextPath(symptomIndex: number, sympKeys: string[]) {
+    if (symptomIndex + 1 < sympKeys.length)
+      return "/setFactors/" + (symptomIndex + 1);
+    else if (!this.props.isOnboarding) return "/main/settings";
+    else return "/main/entries";
+  }
+
   render() {
-    const symptomIndexParam = this.props.match.params.symptomIndex;
+    const symptomIndexParam = this.props.symptomIndexParams.symptomIndex;
     const symptomIndex = parseInt(symptomIndexParam);
     const sympKeys = Object.keys(this.props.symptomsAndFactors);
     const sympStr = sympKeys[symptomIndex] as Symptom;
     const symp = Symptom[sympStr];
+    const symptomName = SymptomNames[symp];
 
     return (
       <div className="onboardContainer">
         <div className="top">
           <div>
-            <div>
-              <Typography variant="h3">
+            <div className="topTitle">
+              <Typography variant="h3" component="span">
                 Which of the following might be related to{" "}
-                <b>{SymptomNames[symp]}</b>?
-                <Typography variant="h6">
-                  ({symptomIndex + 1}/{sympKeys.length})
-                </Typography>
+                <BoldTypography variant="h3">{symptomName}</BoldTypography>?{" "}
+              </Typography>
+              <Typography variant="h6" component="span">
+                ({symptomIndex + 1}/{sympKeys.length})
               </Typography>
             </div>
-            <Typography variant="h6">
-              When you experience acid reflux, we will help you record what was
-              happening. Then the app analyze this data to show you
-              correlations.
-            </Typography>
+            <div className="bottomTitle">
+              <Typography variant="h6">
+                When you experience any {symptomName}, we will help you record
+                what was happening. Then the app analyze this data to show you
+                correlations.
+              </Typography>
+            </div>
           </div>
           <div className="facTiles">
             <Grid container spacing={2}>
@@ -90,12 +90,12 @@ class SetFactorsPage extends Component<Props, {}> {
         </div>
         <div className="submitBtn">
           <NextButton
-            label="Done"
-            path={
-              sympKeys.length > symptomIndex + 1
-                ? "/SetFactors/" + (symptomIndex + 1)
-                : "/ViewEntries"
-            }
+            label="Get Started"
+            path={this.getNextPath(symptomIndex, sympKeys)}
+            onClick={() => {
+              if (symptomIndex + 1 === sympKeys.length)
+                this.props.setOnboardingFalse();
+            }}
           />
         </div>
       </div>
