@@ -5,16 +5,17 @@ import { purple } from "@material-ui/core/colors/";
 import { Typography } from "@material-ui/core";
 
 interface Props {
-  onClick: () => void;
+  toggleSymptom: () => void;
   tileName: string;
   isSelected: boolean;
 }
 
 const TileButton = (props: Props) => {
   const TileBtn = styled(Button)({
+    width: "130px",
     height: "64px",
-    textTransform: "none",
-    background: props.isSelected ? purple[300] : purple[100],
+    textTransform: "capitalize",
+    background: props.isSelected ? purple[200] : purple[100],
   });
 
   return (
@@ -22,8 +23,7 @@ const TileButton = (props: Props) => {
       <TileBtn
         variant="contained"
         color="secondary"
-        fullWidth={true}
-        onClick={props.onClick}
+        onClick={props.toggleSymptom}
       >
         <Typography>{props.tileName}</Typography>
       </TileBtn>

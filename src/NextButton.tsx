@@ -5,25 +5,23 @@ import Button from "@material-ui/core/Button";
 interface Props {
   label: string;
   path: string;
-  onClick: () => void;
 }
 
 const NextButton = (props: Props) => {
-  const NextButtonRouter = withRouter(({ history }) => (
+  const RouterButton = withRouter(({ history }) => (
     <Button
       size="large"
       variant="contained"
       color="primary"
       onClick={() => {
         history.push(props.path);
-        props.onClick();
       }}
     >
       {props.label}
     </Button>
   ));
 
-  return <NextButtonRouter />;
+  return <RouterButton />;
 };
 
 export default NextButton;

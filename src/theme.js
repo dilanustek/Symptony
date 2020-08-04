@@ -16,20 +16,16 @@ const theme = createMuiTheme({
 });
 
 theme.typography.h3 = {
-  fontSize: "26px",
-  fontWeight: "300",
-};
-
-theme.typography.h5 = {
-  fontWeight: "500",
   fontSize: "28px",
-  color: purple[500],
-  marginTop: theme.spacing(8),
+  "@media (min-width:600px)": {
+    fontSize: "26px",
+  },
+  fontWeight: "300",
 };
 
 theme.typography.h6 = {
   fontWeight: "400",
-  fontSize: "14px",
+  fontSize: "16px",
   color: "#999999",
 };
 
