@@ -7,21 +7,12 @@ import { Typography } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 
 interface Props {
-  setSymptomsAndFactors: (symptomsAndFactors: SymptomsAndFactors) => void;
+  setSymptomsAndFactors: (symptom: Symptom) => void;
   symptomsAndFactors: SymptomsAndFactors;
+  setSelectedSymptom: (syptom: Symptom) => void;
 }
 
 class SetSymptomsPage extends Component<Props, {}> {
-  toggleSymptom = (newSymptom: Symptom) => {
-    const symptomsAndFactors = this.props.symptomsAndFactors;
-    if (!symptomsAndFactors[newSymptom]) {
-      symptomsAndFactors[newSymptom] = [];
-    } else {
-      delete symptomsAndFactors[newSymptom];
-    }
-    this.props.setSymptomsAndFactors(symptomsAndFactors);
-  };
-
   getSymptomTiles() {
     const symptoms = Object.values(Symptom);
 
@@ -29,7 +20,7 @@ class SetSymptomsPage extends Component<Props, {}> {
       <Grid item xs key={symptom}>
         <TileButton
           key={symptom}
-          toggleSymptom={() => this.toggleSymptom(symptom)}
+          onClick={() => this.props.setSymptomsAndFactors(symptom)}
           tileName={SymptomNames[symptom]}
           isSelected={this.props.symptomsAndFactors[symptom] !== undefined}
         />
@@ -38,7 +29,6 @@ class SetSymptomsPage extends Component<Props, {}> {
   }
 
   render() {
-    console.log(this.props.symptomsAndFactors);
     return (
       <div className="onboardContainer">
         <div className="top">
@@ -51,13 +41,19 @@ class SetSymptomsPage extends Component<Props, {}> {
             </Grid>
           </div>
         </div>
-        {Object.entries(this.props.symptomsAndFactors).length === 0 ? (
-          <div className="submitBtn"></div>
-        ) : (
-          <div className="submitBtn">
-            <NextButton label="Next" path="/setFactors/0" />
-          </div>
-        )}
+        <div className="submitBtn">
+          {Object.entries(this.props.symptomsAndFactors).length === 0 ? null : (
+            <NextButton
+              label="Next"
+              path="/setFactors/0"
+              onNext={() => {
+                this.props.setSelectedSymptom(
+                  Object.keys(this.props.symptomsAndFactors)[0] as Symptom
+                );
+              }}
+            />
+          )}
+        </div>
       </div>
     );
   }
