@@ -8,13 +8,14 @@ import {
   EntryFactorValue,
 } from "./SymptomHelpers";
 import { Typography } from "@material-ui/core";
-import TileButton from "./TileButton";
+import SmallTileButton from "./SmallTileButton";
+import { styled } from "@material-ui/core/styles";
 
 interface Props {
   symptomsAndFactors: SymptomsAndFactors;
   symptom: Symptom;
   entryFactorValues: EntryFactorValue[];
-  setEntryFactorValue: (factor: Factor, value: string) => void;
+  toggleEntryFactorValue: (factor: Factor, value: string) => void;
 }
 
 function isEntryFactorValueSelected(
@@ -33,60 +34,50 @@ function isEntryFactorValueSelected(
   return false;
 }
 
-function getFactorOptions(
-  factor: Factor,
-  entryFactorValues: EntryFactorValue[],
-  setEntryFactorValue: (factor: Factor, value: string) => void
-) {
+function getFactorOptions(factor: Factor, props: Props) {
   const values = FactorsAndValues[factor];
 
   return values.map((value) => (
-    <Grid item xs key={factor + value}>
-      <TileButton
+    <Grid item xs={6} key={factor + value}>
+      <SmallTileButton
         tileName={value}
         isSelected={isEntryFactorValueSelected(
-          entryFactorValues,
+          props.entryFactorValues,
           factor,
           value
         )}
-        onClick={() => setEntryFactorValue(factor, value)}
+        onClick={() => props.toggleEntryFactorValue(factor, value)}
       />
     </Grid>
   ));
 }
 
-function getFactorsAndOptions(
-  symptom: Symptom,
-  symptomsAndFactors: SymptomsAndFactors,
-  entryFactorValues: EntryFactorValue[],
-  setEntryFactorValue: (factor: Factor, value: string) => void
-) {
-  const factors = symptomsAndFactors[symptom];
+const GridPadding = styled(Grid)(({ theme }) => ({
+  paddingTop: theme.spacing(3),
+}));
+
+const TypographyPadding = styled(Typography)(({ theme }) => ({
+  paddingBottom: theme.spacing(2),
+}));
+
+function getFactorsAndOptions(props: Props) {
+  const factors = props.symptomsAndFactors[props.symptom];
   if (!factors) return null;
 
   return factors.map((factor) => (
-    <Grid container key={factor}>
+    <GridPadding container key={factor}>
       <Grid item xs={12}>
-        <Typography variant="h6">{factor}</Typography>
+        <TypographyPadding variant="h6">{factor}</TypographyPadding>
       </Grid>
-      <Grid container justify="center">
-        {getFactorOptions(factor, entryFactorValues, setEntryFactorValue)}
+      <Grid container justify="center" spacing={2}>
+        {getFactorOptions(factor, props)}
       </Grid>
-    </Grid>
+    </GridPadding>
   ));
 }
 
 const FactorEntryGridItems = (props: Props) => {
-  return (
-    <Grid container>
-      {getFactorsAndOptions(
-        props.symptom,
-        props.symptomsAndFactors,
-        props.entryFactorValues,
-        props.setEntryFactorValue
-      )}
-    </Grid>
-  );
+  return <Grid container>{getFactorsAndOptions(props)}</Grid>;
 };
 
 export default FactorEntryGridItems;

@@ -3,47 +3,44 @@ import Grid from "@material-ui/core/Grid";
 import DateFnsUtils from "@date-io/date-fns";
 import {
   MuiPickersUtilsProvider,
-  KeyboardTimePicker,
-  KeyboardDatePicker,
+  TimePicker,
+  DatePicker,
 } from "@material-ui/pickers";
-import { styled } from "@material-ui/core/styles";
 
 interface Props {
   timeStamp: Date;
-  setTimeStamp: (timeStamp: Date | null) => void;
+  setTimestamp: (timeStamp: Date | null) => void;
 }
 
-const WideKeyboardDatePicker = styled(KeyboardDatePicker)(({ theme }) => ({
-  width: "100%",
-}));
+// const WideDatePicker = styled(DatePicker)(({ theme }) => ({
+//   width: "100%",
+// }));
 
-const WideKeyboardTimePicker = styled(KeyboardTimePicker)(({ theme }) => ({
-  width: "100%",
-}));
+// const WideTimePicker = styled(TimePicker)(({ theme }) => ({
+//   width: "100%",
+// }));
 
 export default function DateTimePicker(props: Props) {
   return (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
-      <Grid container justify="space-around">
-        <WideKeyboardDatePicker
-          margin="normal"
-          id="date-picker-dialog"
-          format="MM/dd/yyyy"
-          value={props.timeStamp}
-          onChange={props.setTimeStamp}
-          KeyboardButtonProps={{
-            "aria-label": "change date",
-          }}
-        />
-        <WideKeyboardTimePicker
-          margin="normal"
-          id="time-picker"
-          value={props.timeStamp}
-          onChange={props.setTimeStamp}
-          KeyboardButtonProps={{
-            "aria-label": "change time",
-          }}
-        />
+      <Grid container justify="space-around" spacing={2}>
+        <Grid item>
+          <DatePicker
+            margin="normal"
+            id="date-picker-dialog"
+            format="MM/dd/yyyy"
+            value={props.timeStamp}
+            onChange={props.setTimestamp}
+          />
+        </Grid>
+        <Grid item xs>
+          <TimePicker
+            margin="normal"
+            id="time-picker"
+            value={props.timeStamp}
+            onChange={props.setTimestamp}
+          />
+        </Grid>
       </Grid>
     </MuiPickersUtilsProvider>
   );

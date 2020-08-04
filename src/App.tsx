@@ -4,7 +4,13 @@ import { Switch } from "react-router-dom";
 import SetSymptomsPage from "./SetSymptomsPage";
 import SetFactorsPage from "./SetFactorsPage";
 import { History } from "history";
-import { SymptomsAndFactors, Factor, Symptom, Entry } from "./SymptomHelpers";
+import {
+  SymptomsAndFactors,
+  Factor,
+  Symptom,
+  Entry,
+  fillFactorValueDictionary,
+} from "./SymptomHelpers";
 import "./App.css";
 import ViewEntriesPage from "./ViewEntriesPage";
 import AnalyticsPage from "./AnalyticsPage";
@@ -16,6 +22,7 @@ interface State {
   symptomsAndFactors: SymptomsAndFactors;
   allEntries: Entry[];
   selectedSymptom: Symptom | null;
+  isOnboarding: boolean;
 }
 
 interface Props {
@@ -29,16 +36,45 @@ class AppInner extends Component<Props, State> {
   //   VERTIGO: [Factor.SLEEP, Factor.MOOD],
   // };
 
+  // allEntries: Entry[] = [
+  //   {
+  //     symptom: Symptom.PAIN,
+  //     timestamp: new Date(2020, 7, 20, 11, 20, 0),
+  //     entryFactorValues: [
+  //       { factor: Factor.ACTIVITY, value: "Sitting" },
+  //       { factor: Factor.EXERCISE, value: "No exercise" },
+  //     ],
+  //   },
+  //   {
+  //     symptom: Symptom.VERTIGO,
+  //     timestamp: new Date(2020, 7, 20, 9, 14, 0),
+  //     entryFactorValues: [
+  //       { factor: Factor.SLEEP, value: "Not enough" },
+  //       { factor: Factor.MOOD, value: "Stress" },
+  //     ],
+  //   },
+  //   {
+  //     symptom: Symptom.PAIN,
+  //     timestamp: new Date(),
+  //     entryFactorValues: [
+  //       { factor: Factor.ACTIVITY, value: "Sitting" },
+  //       { factor: Factor.EXERCISE, value: "No exercise" },
+  //     ],
+  //   },
+  // ];
+
   // state: State = {
   //   symptomsAndFactors: this.symptomsAndFactors,
-  //   allEntries: [],
+  //   allEntries: this.allEntries,
   //   selectedSymptom: Object.keys(this.symptomsAndFactors)[0] as Symptom,
+  //   isOnboarding: false,
   // };
 
   state: State = {
     symptomsAndFactors: {},
     allEntries: [],
     selectedSymptom: null,
+    isOnboarding: true,
   };
 
   componentDidMount() {
@@ -46,46 +82,60 @@ class AppInner extends Component<Props, State> {
     this.props.history.push("/setSymptoms");
 
     //  for development
-    // this.props.history.push("/main/entries/");
+    // this.props.history.push("/main/analytics/");
+
+    fillFactorValueDictionary();
   }
 
-  setSymptomsAndFactors = (symptom: Symptom, factor?: Factor) => {
-    const symptomsAndFactors = this.state.symptomsAndFactors;
-    const factorList = symptomsAndFactors[symptom];
+  setOnboardingFalse = () => {
+    this.setState({ isOnboarding: false });
+  };
 
-    if (!factor) {
-      //toggle symptom
+  toggleSymptom = (symptom: Symptom) => {
+    this.setState((state) => {
+      const symptomsAndFactors = { ...state.symptomsAndFactors };
+      const factorList = symptomsAndFactors[symptom];
       if (!factorList) {
-        // symptom doesn't exist. Add it.
         symptomsAndFactors[symptom] = [];
+        return {
+          symptomsAndFactors,
+        };
       } else {
         delete symptomsAndFactors[symptom];
+        return {
+          symptomsAndFactors,
+        };
       }
-    } else {
-      // toggle factor
-      if (!factorList)
-        return Error("Symptom is null while trying to add factors.");
-
-      // if factor is there remove it, otherwise add it.
-      if (factorList.includes(factor)) {
-        const removedFactorList = factorList.filter((fac) => fac !== factor);
-        symptomsAndFactors[symptom] = removedFactorList;
-      } else {
-        factorList.push(factor);
-      }
-    }
-
-    this.setState({
-      symptomsAndFactors,
     });
   };
 
-  setNewEntry = (newEntry: Entry) => {
-    const entries = this.state.allEntries;
-    entries.push(newEntry);
+  toggleFactor = (symptom: Symptom, factor: Factor) => {
+    this.setState((state) => {
+      const symptomsAndFactors = { ...state.symptomsAndFactors };
+      const factorList = symptomsAndFactors[symptom];
+      let factorListCopy: Factor[] = [];
+      if (factorList) {
+        factorListCopy = [...factorList];
+      }
+      if (factorListCopy.includes(factor)) {
+        const removedFactorList = factorListCopy?.filter(
+          (fac) => fac !== factor
+        );
+        symptomsAndFactors[symptom] = removedFactorList;
+      } else {
+        symptomsAndFactors[symptom] = factorListCopy;
+        factorListCopy.push(factor);
+      }
 
-    this.setState({
-      allEntries: entries,
+      return {
+        symptomsAndFactors,
+      };
+    });
+  };
+
+  createNewEntry = (newEntry: Entry) => {
+    this.setState((state) => {
+      return { allEntries: [...state.allEntries, newEntry] };
     });
   };
 
@@ -97,75 +147,87 @@ class AppInner extends Component<Props, State> {
 
   render() {
     return (
-      <div className="App">
-        <Switch>
-          <Route
-            path="/setSymptoms"
-            render={() => (
-              <SetSymptomsPage
-                symptomsAndFactors={this.state.symptomsAndFactors}
-                setSymptomsAndFactors={this.setSymptomsAndFactors}
-                setSelectedSymptom={this.setSelectedSymptom}
+      <div className="container">
+        <div className="App">
+          <div className="content">
+            <Switch>
+              <Route
+                path="/setSymptoms"
+                render={() => (
+                  <SetSymptomsPage
+                    symptomsAndFactors={this.state.symptomsAndFactors}
+                    toggleSymptom={this.toggleSymptom}
+                    setSelectedSymptom={this.setSelectedSymptom}
+                  />
+                )}
               />
-            )}
-          />
-          <Route
-            exact
-            path="/setFactors/:symptomIndex"
-            render={(props: RouteComponentProps) => (
-              <SetFactorsPage
-                symptomsAndFactors={this.state.symptomsAndFactors}
-                setSymptomsAndFactors={this.setSymptomsAndFactors}
-                symptomIndexParams={props.match.params}
+              <Route
+                exact
+                path="/setFactors/:symptomIndex"
+                render={(props: RouteComponentProps) => (
+                  <SetFactorsPage
+                    symptomsAndFactors={this.state.symptomsAndFactors}
+                    toggleFactor={this.toggleFactor}
+                    symptomIndexParams={props.match.params}
+                    isOnboarding={this.state.isOnboarding}
+                    setOnboardingFalse={this.setOnboardingFalse}
+                  />
+                )}
               />
-            )}
-          />
-          <Route
-            path="/main/entries"
-            render={() =>
-              !this.state.selectedSymptom ? null : (
-                <ViewEntriesPage
-                  symptomsAndFactors={this.state.symptomsAndFactors}
-                  selectedSymptom={this.state.selectedSymptom}
-                  setSelectedSymptom={this.setSelectedSymptom}
-                />
-              )
-            }
-          />
-          <Route
-            path="/main/analytics"
-            render={() => (
-              <AnalyticsPage
-                symptomsAndFactors={this.state.symptomsAndFactors}
+              <Route
+                path="/main/entries"
+                render={() =>
+                  !this.state.selectedSymptom ? null : (
+                    <ViewEntriesPage
+                      symptomsAndFactors={this.state.symptomsAndFactors}
+                      selectedSymptom={this.state.selectedSymptom}
+                      allEntries={this.state.allEntries}
+                      setSelectedSymptom={this.setSelectedSymptom}
+                    />
+                  )
+                }
               />
-            )}
-          />
-          <Route
-            path="/main/settings"
-            render={() => (
-              <SettingsPage
-                symptomsAndFactors={this.state.symptomsAndFactors}
+              <Route
+                path="/main/analytics"
+                render={() =>
+                  !this.state.selectedSymptom ? null : (
+                    <AnalyticsPage
+                      symptomsAndFactors={this.state.symptomsAndFactors}
+                      selectedSymptom={this.state.selectedSymptom}
+                      setSelectedSymptom={this.setSelectedSymptom}
+                      allEntries={this.state.allEntries}
+                    />
+                  )
+                }
               />
-            )}
-          />
+              <Route
+                path="/main/settings"
+                render={() => (
+                  <SettingsPage
+                    symptomsAndFactors={this.state.symptomsAndFactors}
+                  />
+                )}
+              />
+              <Route
+                path="/newEntry"
+                render={() =>
+                  !this.state.selectedSymptom ? null : (
+                    <NewEntry
+                      symptomsAndFactors={this.state.symptomsAndFactors}
+                      createNewEntry={this.createNewEntry}
+                      setSelectedSymptom={this.setSelectedSymptom}
+                      selectedSymptom={this.state.selectedSymptom}
+                    />
+                  )
+                }
+              />
+            </Switch>
+          </div>
           <Route
-            path="/newEntry"
-            render={() =>
-              !this.state.selectedSymptom ? null : (
-                <NewEntry
-                  symptomsAndFactors={this.state.symptomsAndFactors}
-                  setNewEntry={this.setNewEntry}
-                  setSelectedSymptom={this.setSelectedSymptom}
-                  selectedSymptom={this.state.selectedSymptom}
-                />
-              )
-            }
+            path="/main"
+            render={(props) => <NavBar history={props.history} />}
           />
-        </Switch>
-        <Route
-          path="/main"
-          render={(props) => <NavBar history={props.history} />}
-        />
+        </div>
       </div>
     );
   }

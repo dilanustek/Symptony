@@ -17,12 +17,12 @@ import EntrySaveButton from "./EntrySaveButton";
 import FactorEntryGridItems from "./FactorEntryGridItems";
 
 interface State {
-  timeStamp: Date;
+  timestamp: Date;
   entryFactorValues: EntryFactorValue[];
 }
 
 interface Props {
-  setNewEntry: (newEntry: Entry) => void;
+  createNewEntry: (newEntry: Entry) => void;
   symptomsAndFactors: SymptomsAndFactors;
   selectedSymptom: Symptom;
   setSelectedSymptom: (symptom: Symptom) => void;
@@ -36,58 +36,68 @@ const NewEntryTitle = styled(Typography)(({ theme }) => ({
   marginTop: theme.spacing(0),
 }));
 
-const LeftAlignedGrid = styled(Grid)(({ theme }) => ({
+const HeaderGrid = styled(Grid)(({ theme }) => ({
+  height: theme.spacing(9),
+  paddingTop: theme.spacing(3),
+  paddingLeft: 0,
+  paddingRight: 0,
+}));
+
+const LeftAlignedGrid = styled(Grid)({
   display: "flex",
   justifyContent: "flex-end",
-}));
+});
 
 class NewEntry extends Component<Props, State> {
   state: State = {
-    timeStamp: new Date(Date.now()),
+    timestamp: new Date(Date.now()),
     entryFactorValues: [],
   };
 
-  setTimeStamp = (timeStamp: Date | null) => {
+  setTimestamp = (timeStamp: Date | null) => {
     if (timeStamp) {
-      this.setState({ timeStamp });
+      this.setState({ timestamp: timeStamp });
     }
   };
 
   saveEntry = () => {
     const entry: Entry = {
       symptom: this.props.selectedSymptom,
-      timeStamp: this.state.timeStamp,
+      timestamp: this.state.timestamp,
       entryFactorValues: this.state.entryFactorValues,
     };
 
-    this.props.setNewEntry(entry);
+    this.props.createNewEntry(entry);
   };
 
-  setEntryFactorValue = (factor: Factor, value: string) => {
-    const newEntryFactorValue = {
-      factor,
-      value,
-    };
-    const newEntryFactorValues = this.state.entryFactorValues;
-    newEntryFactorValues.push(newEntryFactorValue);
+  toggleEntryFactorValue = (factor: Factor, value: string) => {
+    this.setState((state) => {
+      const oldFactorValues = this.state.entryFactorValues;
+      const otherEntryFactorValues = oldFactorValues.filter(
+        (fv) => !(fv.factor === factor && fv.value === value)
+      );
 
-    this.setState({ entryFactorValues: newEntryFactorValues });
+      if (otherEntryFactorValues.length === oldFactorValues.length) {
+        otherEntryFactorValues.push({ factor, value });
+      }
+      return { entryFactorValues: otherEntryFactorValues };
+    });
   };
 
   render() {
     return (
       <>
-        <Grid container direction="row" alignItems="center">
+        <HeaderGrid container direction="row" alignItems="center">
           <Grid item xs={2}>
             <CloseButton />
           </Grid>
-          <Grid item xs={7}>
+          <Grid item xs={6}>
             <NewEntryTitle variant="h5">New Entry</NewEntryTitle>
           </Grid>
           <LeftAlignedGrid item xs>
             <EntrySaveButton saveEntry={this.saveEntry} />
           </LeftAlignedGrid>
-        </Grid>
+        </HeaderGrid>
         <TitleDivider variant="fullWidth" />
 
         <SelectedSymptomsDropdown
@@ -96,15 +106,15 @@ class NewEntry extends Component<Props, State> {
           setSelectedSymptom={this.props.setSelectedSymptom}
         />
         <DateTimePicker
-          timeStamp={this.state.timeStamp}
-          setTimeStamp={this.setTimeStamp}
+          timeStamp={this.state.timestamp}
+          setTimestamp={this.setTimestamp}
         />
 
         <FactorEntryGridItems
           symptomsAndFactors={this.props.symptomsAndFactors}
           symptom={this.props.selectedSymptom}
           entryFactorValues={this.state.entryFactorValues}
-          setEntryFactorValue={this.setEntryFactorValue}
+          toggleEntryFactorValue={this.toggleEntryFactorValue}
         />
       </>
     );

@@ -1,3 +1,6 @@
+// Constants
+// const MAX_FACTORVALUES = 5;
+
 // SYMPTOMS
 export enum Symptom {
   REFLUX = "REFLUX",
@@ -11,13 +14,13 @@ export enum Symptom {
 }
 
 export const SymptomNames: { [key in Symptom]: string } = {
-  REFLUX: "Acid Reflux",
-  IBS: "Irritable Bowel",
+  REFLUX: "Acid reflux",
+  IBS: "Irritable bowel",
   HEART: "Heart irregularity",
   MIGRAINE: "Migraines",
   STOMACH: "Stomach / Nausia",
   PAIN: "Pain",
-  PMS: "Premenstrual Syndrome",
+  PMS: "Premenstrual syndrome",
   VERTIGO: "Vertigo",
 };
 
@@ -31,31 +34,8 @@ export enum Factor {
   SLEEP = "SLEEP",
 }
 
-/// how to turn this into a class?
-// export type Factor5 = {
-//   id: string;
-//   name: string;
-// }
-
-// export type Other = {
-//   id: string;
-//   name: string;
-// }
-
-// const f:Factor5 = {id:"aaa",name:"aaaaa"};
-// const o:Other = {id:"assaa",name:"aaassaa"};
-
-// function foo2(a:Factor5){
-//   return a;
-// }
-
-// foo2(f);
-// foo2(o);
-// const s="aaaa";
-// foo2(s);
-
 export const FactorNames: { [key in Factor]: string } = {
-  ACTIVITY: "Current Activity",
+  ACTIVITY: "Current activity",
   EXERCISE: "Exercise",
   HYDRATION: "Hydration",
   FOOD: "Food",
@@ -69,94 +49,11 @@ export type SymptomsAndFactors = {
 };
 
 // FACTORS' OPTIONS
-//Activity
-// export enum ActivityOptions {
-//   SITTING = "SITTING",
-//   WALKING = "WALKING",
-//   RUNNING = "RUNNING",
-//   LAYING = "LAYING",
-// }
 
-// export const ActivityOptionNames: { [key in ActivityOptions]: string } = {
-//   SITTING: "Sitting",
-//   WALKING: "Walking",
-//   RUNNING: "Running",
-//   LAYING: "Laying down",
-// };
-
-// export const ActivityOptions = [
-//   "SITTING",
-//   "WALKING",
-//   "RUNNING",
-//   "LAYING",
-// ] as const;
-// type typeOfArray = typeof ActivityOptions;
-// type ActivityOption = typeOfArray[number];
-
-// export const ActivityOptionNames2: { [key in ActivityOption]: string } = {
-//   SITTING: "Sitting",
-//   WALKING: "Walking",
-//   RUNNING: "Running",
-//   LAYING: "Laying down",
-// };
-
-// export const ActivityOptions = ["SITTING","WALKING","RUNNING","LAYING"] as const;
-// type typeOfArray = typeof ActivityOptions;
-// type ActivityOption = typeOfArray[number];
-
-// export const ActivityOptionNames3: { [key: string]: string } = {
-//   SITTING: "Sitting",
-//   WALKING: "Walking",
-//   RUNNING: "Running",
-//   LAYING: "Laying down",
-// };
-
-// type ActivityEntry = {
-//   SITTING: boolean;
-//   WALKING: boolean;
-//   RUNNING: boolean;
-//   LAYING: boolean;
-// };
-
-export var ActivityValues = ["Sitting", "Walking", "Running", "Laying down"];
-
-//Water
-// export enum WaterOptions {
-//   BAD = "BAD",
-//   GOOD = "GOOD",
-// }
-
-// export const WaterOptionNames: { [key in WaterOptions]: string } = {
-//   BAD: "Bad",
-//   GOOD: "Good",
-// };
-
-// type WaterEntry = {
-//   BAD: boolean;
-//   GOOD: boolean;
-// };
-
-export var WaterValues = ["Not enough", "Enough"];
-
-//Exercise
-// export enum ExerciseOptions {
-//   NONE = "NONE",
-//   YES = "YES",
-// }
-
-// export const ExerciseOptionNames: { [key in ExerciseOptions]: string } = {
-//   NONE: "No Exercise",
-//   YES: "Exercised",
-// };
-
-// type ExerciseEntry = {
-//   NONE: boolean;
-//   YES: boolean;
-// };
-
-export var ExerciseValues = ["No exercise", "Exercised"];
-
-export var FoodValues = [
+export const ActivityValues = ["Sitting", "Walking", "Running", "Laying down"];
+export const WaterValues = ["Not enough", "Enough"];
+export const ExerciseValues = ["No exercise", "Exercised"];
+export const FoodValues = [
   "Carbohydrates",
   "Sugar",
   "Protein",
@@ -164,8 +61,8 @@ export var FoodValues = [
   "Lactose",
   "Gluten",
 ];
-export var MoodValues = ["Stress", "Anxiety"];
-export var SleepValues = ["Not enough", "Too much"];
+export const MoodValues = ["Stress", "Anxiety"];
+export const SleepValues = ["Not enough", "Too much"];
 
 export const FactorsAndValues = {
   ACTIVITY: ActivityValues,
@@ -176,21 +73,76 @@ export const FactorsAndValues = {
   SLEEP: SleepValues,
 };
 
-// all the entries are in FactorEntries.
-// export type FactorEntry = {
-//   factors: Factor[];
-//   activityEntry?: ActivityEntry;
-//   exerciseEntry?: ExerciseEntry;
-//   waterEntry?: WaterEntry;
-// };
-
+// EntryFactorValue type is a factor and value pair that will be stored as an  array for each entry.
 export type EntryFactorValue = {
   factor: Factor;
   value: string;
 };
 
+// Each entry has  a symptom. timestamp,  and a list of factor-value pairs(EntryFactorValue)
 export type Entry = {
   symptom: Symptom;
-  timeStamp: Date;
+  timestamp: Date;
   entryFactorValues: EntryFactorValue[];
 };
+
+// // All tracked factors and values are tracked with an ID
+export const idFactorValueMap: Map<string, EntryFactorValue> = new Map();
+// export const factorValueIdMap: Map<EntryFactorValue, string> = new Map();
+
+export function fillFactorValueDictionary() {
+  let id = 0;
+  for (let factor of Object.values(Factor)) {
+    for (let value of FactorsAndValues[factor]) {
+      idFactorValueMap.set(id.toString(), { factor, value });
+      // factorValueIdMap.set({ factor, value }, id.toString());
+      id++;
+    }
+  }
+}
+
+// // Commonly used functions
+// export function getEntriesBySymptom(symptom: Symptom, allEntries: Entry[]) {
+//   return allEntries.filter((entry) => entry.symptom === symptom);
+// }
+
+// function countFactorValues(entries: Entry[]) {
+//   var factorValueCounts: Map<string, number> = new Map();
+
+//   for (let entry of entries) {
+//     for (let fv of entry.entryFactorValues) {
+//       const id = factorValueIdMap.get(fv);
+//       if (!id) return null;
+//       const incrementCount = (factorValueCounts.get(id) || 0) + 1;
+//       factorValueCounts.set(id, incrementCount);
+//     }
+//   }
+
+//   return factorValueCounts;
+// }
+
+// export function getCommonFactorValuesBySymptom(
+//   symptom: Symptom,
+//   allEntries: Entry[]
+// ) {
+//   const factorValueCounts = countFactorValues(
+//     getEntriesBySymptom(symptom, allEntries)
+//   );
+
+//   // console.log("factor Value counts " + factorValueCounts?.keys.length);
+
+//   if (!factorValueCounts) return null;
+
+//   const sorted = [...factorValueCounts.entries()].sort((a, b) => a[1] - b[1]);
+//   const top = sorted.slice(0, MAX_FACTORVALUES);
+
+//   const result = top.map(([id, count]) => {
+//     const fv = idFactorValueMap.get(id);
+//     if (!fv) return null;
+//     return { fv, count };
+//   });
+//   return result;
+//   // get the top 5 counts' indeces.
+//   // for each index, get the fv in factorValuePairs[index]
+//   // return those 5 fvs.
+// }
